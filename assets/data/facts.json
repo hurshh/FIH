@@ -1,0 +1,146 @@
+[
+  {
+    "id": "bra-toucan",
+    "country": "BRA",
+    "topic": "wildlife",
+    "art": "toucan",
+    "title": {
+      "en": "A big beak. A light bite.",
+      "es": "Un pico grande y ligero."
+    },
+    "body": {
+      "en": "Toucans live in Brazil and other parts of the Americas. Their enormous beaks look heavy, but a spongy structure inside makes them surprisingly light!",
+      "es": "Los tucanes viven en Brasil y en otras partes de América. Sus enormes picos parecen pesados, ¡pero una estructura esponjosa por dentro los hace muy ligeros!"
+    },
+    "sourceName": "San Diego Zoo Wildlife Alliance",
+    "sourceUrl": "https://animals.sandiegozoo.org/animals/toucan",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-09"
+  },
+  {
+    "id": "bra-capoeira",
+    "country": "BRA",
+    "topic": "culture",
+    "art": "music",
+    "title": {
+      "en": "Step into the circle.",
+      "es": "Entra en el círculo."
+    },
+    "body": {
+      "en": "Capoeira is an Afro-Brazilian tradition that combines fighting movements, dance, and music. Two players move in the middle of a circle while others sing, clap, and play instruments.",
+      "es": "La capoeira es una tradición afrobrasileña que combina movimientos de lucha, danza y música. Dos personas se mueven en el centro de un círculo mientras las demás cantan, aplauden y tocan instrumentos."
+    },
+    "sourceName": "UNESCO",
+    "sourceUrl": "https://ich.unesco.org/en/RL/capoeira-circle-00892",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-09"
+  },
+  {
+    "id": "mex-axolotl",
+    "country": "MEX",
+    "topic": "wildlife",
+    "art": "axolotl",
+    "title": {
+      "en": "Meet a real-life water wonder.",
+      "es": "Una maravilla bajo el agua."
+    },
+    "body": {
+      "en": "The axolotl is a salamander native to Mexico. Unlike most salamanders, it keeps its feathery outside gills as an adult and spends its life in water.",
+      "es": "El ajolote es una salamandra originaria de México. A diferencia de la mayoría de las salamandras, conserva sus branquias externas con forma de plumas al crecer y pasa su vida en el agua."
+    },
+    "sourceName": "San Diego Zoo Wildlife Alliance",
+    "sourceUrl": "https://animals.sandiegozoo.org/animals/axolotl",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-09"
+  },
+  {
+    "id": "mex-mariachi",
+    "country": "MEX",
+    "topic": "culture",
+    "art": "music",
+    "title": {
+      "en": "A story you can hear.",
+      "es": "Una historia que se escucha."
+    },
+    "body": {
+      "en": "Mariachi is a Mexican musical tradition. Many groups bring together violins, trumpets, and guitars. Their songs tell stories about places, people, and life.",
+      "es": "El mariachi es una tradición musical mexicana. Muchos grupos reúnen violines, trompetas y guitarras. Sus canciones cuentan historias sobre lugares, personas y la vida."
+    },
+    "sourceName": "UNESCO",
+    "sourceUrl": "https://ich.unesco.org/doc/src/17331-EN.pdf",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-09"
+  },
+  {
+    "id": "mex-teotihuacan",
+    "country": "MEX",
+    "topic": "history",
+    "art": "mountains",
+    "title": {
+      "en": "A city of pyramids.",
+      "es": "Una ciudad de pirámides."
+    },
+    "body": {
+      "en": "The ancient city of Teotihuacan in Mexico has pyramids named for the Sun and the Moon. Its huge monuments remind us of a city built long before modern Mexico existed.",
+      "es": "La antigua ciudad de Teotihuacán, en México, tiene pirámides llamadas del Sol y de la Luna. Sus enormes monumentos nos recuerdan una ciudad construida mucho antes de que existiera el México moderno."
+    },
+    "sourceName": "UNESCO",
+    "sourceUrl": "https://whc.unesco.org/en/list/414/",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-09"
+  },
+  {
+    "id": "per-machu",
+    "country": "PER",
+    "topic": "landmarks",
+    "art": "mountains",
+    "title": {
+      "en": "A city among the peaks.",
+      "es": "Una ciudad entre montañas."
+    },
+    "body": {
+      "en": "High in Peru’s mountains, the Inca built Machu Picchu. Stone walls and stepped terraces follow the steep slopes, fitting the city into its mountain home.",
+      "es": "En lo alto de las montañas de Perú, los incas construyeron Machu Picchu. Sus muros de piedra y terrazas escalonadas siguen las laderas e integran la ciudad con la montaña."
+    },
+    "sourceName": "UNESCO",
+    "sourceUrl": "https://whc.unesco.org/en/list/274/",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-09"
+  },
+  {
+    "id": "per-potatoes",
+    "country": "PER",
+    "topic": "food",
+    "art": "food",
+    "title": {
+      "en": "Potatoes in a rainbow of colors.",
+      "es": "Papas de muchos colores."
+    },
+    "body": {
+      "en": "Farmers in Peru grow native potatoes in many shapes and colors. Potatoes were first domesticated in the Andes, where farming communities have cared for their diversity for generations.",
+      "es": "En Perú se cultivan papas nativas de muchas formas y colores. La papa se domesticó por primera vez en los Andes, donde las comunidades agricultoras han cuidado su diversidad durante generaciones."
+    },
+    "sourceName": "International Potato Center",
+    "sourceUrl": "https://cipotato.org/potato/native-potato-varieties/",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-09"
+  },
+  {
+    "id": "usa-basketball",
+    "country": "USA",
+    "topic": "inventions",
+    "art": "basketball",
+    "title": {
+      "en": "The first hoops held peaches.",
+      "es": "Las primeras canastas eran para duraznos."
+    },
+    "body": {
+      "en": "In 1891, James Naismith invented basketball in Springfield, Massachusetts. The first goals were peach baskets. A simple idea became a game played around the world!",
+      "es": "En 1891, James Naismith inventó el básquetbol en Springfield, Massachusetts. Las primeras canastas eran cestos para duraznos. ¡Una idea sencilla se convirtió en un juego para todo el mundo!"
+    },
+    "sourceName": "Springfield College",
+    "sourceUrl": "https://springfield.edu/about/birthplace-of-basketball",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-09"
+  }
+]
