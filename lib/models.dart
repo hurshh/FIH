@@ -99,8 +99,28 @@ class AtlasContinent {
     for (final item in json['context']) {
       context.addPath(parsePolygons(item['polygons']), Offset.zero);
     }
+    // Areas drawn as part of one country and removed from any other outline.
+    final transfers = <String, Path>{};
+    var transferred = Path();
+    for (final item in json['transfers'] ?? const []) {
+      final area = parsePolygons(item['polygons']);
+      transfers[item['to']] = transfers.containsKey(item['to'])
+          ? Path.combine(PathOperation.union, transfers[item['to']]!, area)
+          : area;
+      transferred = Path.combine(PathOperation.union, transferred, area);
+    }
     final countries = (json['countries'] as List<dynamic>).map((item) {
-      final original = parsePolygons(item['polygons']);
+      var path = Path.combine(
+        PathOperation.difference,
+        parsePolygons(item['polygons']),
+        deferred,
+      );
+      final gained = transfers[item['id']];
+      if (gained != null) {
+        path = Path.combine(PathOperation.union, path, gained);
+      } else if (path.getBounds().overlaps(transferred.getBounds())) {
+        path = Path.combine(PathOperation.difference, path, transferred);
+      }
       return Country(
         id: item['id'],
         name: LocalText(item['en'], item['es']),
@@ -111,7 +131,7 @@ class AtlasContinent {
           (item['label'][0] as num).toDouble(),
           (item['label'][1] as num).toDouble(),
         ),
-        path: Path.combine(PathOperation.difference, original, deferred),
+        path: path,
       );
     }).toList();
     return AtlasContinent(

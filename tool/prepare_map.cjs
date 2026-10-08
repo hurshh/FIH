@@ -51,6 +51,9 @@ const continents = [
     // Natural Earth's "Israel" feature covers nearly all of a UN member state.
     // It is not a disputed sub-area, so it is not masked.
     keepSelectable: ['B91'],
+    // Project owner's decision: Jammu and Kashmir is shown as on India's official
+    // maps, including areas administered by Pakistan and China.
+    transfers: {IND: ['B05', 'B09', 'B08', 'B45', 'B07', 'B06', 'B03']},
   },
 ];
 
@@ -109,7 +112,15 @@ function build(config) {
   if (selected.length !== codes.size) throw new Error(`Missing ${config.id} country outlines.`);
   if (selected.some(c => !c.region)) throw new Error(`Missing ${config.id} region.`);
   const keep = new Set(config.keepSelectable || []);
-  const deferred = disputed.features.filter(f => inContinent(f) && !keep.has(f.properties.BRK_A3)).map(f => ({
+  const transferTo = {};
+  for (const [to, ids] of Object.entries(config.transfers || {})) for (const id of ids) transferTo[id] = to;
+  const transfers = disputed.features.filter(f => transferTo[f.properties.BRK_A3]).map(f => ({
+    id: f.properties.BRK_A3,
+    to: transferTo[f.properties.BRK_A3],
+    polygons: geometry(f.geometry),
+  }));
+  if (transfers.length !== Object.keys(transferTo).length) throw new Error(`Missing ${config.id} transfers.`);
+  const deferred = disputed.features.filter(f => inContinent(f) && !keep.has(f.properties.BRK_A3) && !transferTo[f.properties.BRK_A3]).map(f => ({
     id: f.properties.BRK_A3,
     name: f.properties.NAME_EN || f.properties.BRK_NAME,
     polygons: geometry(f.geometry),
@@ -121,7 +132,9 @@ function build(config) {
       .filter(f => f.polygons.length)
     : countries.features.filter(f => inContinent(f) && !codes.has(f.properties.ADM0_A3))
       .map(f => ({id: f.properties.ADM0_A3, polygons: geometry(f.geometry)}));
-  return {id: config.id, width: config.width, height: config.height, countries: selected, context, deferred};
+  const result = {id: config.id, width: config.width, height: config.height, countries: selected, context, deferred};
+  if (transfers.length) result.transfers = transfers;
+  return result;
 }
 
 const output = {

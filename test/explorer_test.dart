@@ -99,9 +99,23 @@ void main() {
     expect(asia.countryAt(at(78.9, 22.5))?.id, 'IND');
     expect(asia.countryAt(at(138.5, 36.2))?.id, 'JPN');
     expect(asia.countryAt(at(34.9, 31.5))?.id, 'ISR');
-    // Taiwan and Kashmir stay neutral and non-interactive.
+    // Jammu and Kashmir is part of India, including Pakistan- and
+    // China-administered areas; neither neighbour's outline overlaps it.
+    for (final (lon, lat) in [
+      (75.3, 34.1),
+      (73.8, 34.4),
+      (74.5, 36.0),
+      (79.5, 35.2),
+    ]) {
+      expect(asia.countryAt(at(lon, lat))?.id, 'IND', reason: '$lon,$lat');
+    }
+    final pakistan = asia.countries.firstWhere((c) => c.id == 'PAK').path;
+    final china = asia.countries.firstWhere((c) => c.id == 'CHN').path;
+    expect(pakistan.contains(at(74.5, 36.0)), isFalse);
+    expect(china.contains(at(79.5, 35.2)), isFalse);
+    expect(asia.countryAt(at(69, 30))?.id, 'PAK');
+    // Taiwan stays neutral and non-interactive.
     expect(asia.countryAt(at(121, 23.7)), isNull);
-    expect(asia.countryAt(at(75.3, 34.1)), isNull);
   });
 
   testWidgets('map hit testing selects a country, including after zoom', (
