@@ -92,7 +92,7 @@ class _ExplorerHomeState extends State<ExplorerHome> {
   late final Random random = widget.random ?? Random();
   late String continent = widget.data.continents.first.id;
   Country? selected;
-  DiscoveryFact? fact;
+  DiscoveryCard? fact;
   final factScroll = ScrollController();
   Strings get s => Strings(widget.language);
 
@@ -108,7 +108,7 @@ class _ExplorerHomeState extends State<ExplorerHome> {
       selected = country;
       fact =
           bag.current(country.id) ??
-          bag.draw(country.id, widget.data.factsFor(country.id));
+          bag.draw(country.id, widget.data.cardsFor(country.id));
     });
     if (factScroll.hasClients) factScroll.jumpTo(0);
   }
@@ -116,7 +116,7 @@ class _ExplorerHomeState extends State<ExplorerHome> {
   void nextFact() {
     if (selected == null) return;
     setState(
-      () => fact = bag.draw(selected!.id, widget.data.factsFor(selected!.id)),
+      () => fact = bag.draw(selected!.id, widget.data.cardsFor(selected!.id)),
     );
     if (factScroll.hasClients) factScroll.jumpTo(0);
   }
@@ -180,8 +180,8 @@ class _ExplorerHomeState extends State<ExplorerHome> {
             const SizedBox(height: 16),
             Text(
               s.t(
-                'Map: Natural Earth (public domain). Fonts: Nunito and Fraunces (SIL Open Font License). Illustrations: original vector artwork. Facts: source credits appear on each card; editorial review is pending.',
-                'Mapa: Natural Earth (dominio público). Tipografías: Nunito y Fraunces (SIL Open Font License). Ilustraciones: arte vectorial original. Datos: cada tarjeta indica su fuente; la revisión editorial está pendiente.',
+                'Map, capitals, and neighbors: Natural Earth (public domain). Population and area: World Bank (CC BY 4.0). Fonts: Nunito and Fraunces (SIL Open Font License). Illustrations: original vector artwork. Facts: source credits appear on each card; editorial review is pending.',
+                'Mapa, capitales y vecinos: Natural Earth (dominio público). Población y superficie: Banco Mundial (CC BY 4.0). Tipografías: Nunito y Fraunces (SIL Open Font License). Ilustraciones: arte vectorial original. Datos: cada tarjeta indica su fuente; la revisión editorial está pendiente.',
               ),
               style: const TextStyle(color: muted, fontSize: 13),
             ),
@@ -507,6 +507,7 @@ class _ExplorerHomeState extends State<ExplorerHome> {
   Widget _factContent() {
     final country = selected!;
     final current = fact;
+    final funFact = current is DiscoveryFact ? current : null;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -536,106 +537,118 @@ class _ExplorerHomeState extends State<ExplorerHome> {
           style: const TextStyle(color: muted, fontSize: 13),
         ),
         const SizedBox(height: 19),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: DiscoveryArt(scene: current?.art ?? 'mountains', height: 205),
-        ),
-        const SizedBox(height: 22),
-        if (current != null) ...[
-          _topicChip(current.topic),
-          const SizedBox(height: 13),
-          Semantics(
-            liveRegion: true,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  current.title.inLanguage(widget.language),
-                  key: ValueKey('title-${current.id}'),
-                  style: displayStyle(28),
-                ),
-                const SizedBox(height: 13),
-                Text(
-                  current.body.inLanguage(widget.language),
-                  key: ValueKey('body-${current.id}'),
-                  style: const TextStyle(
-                    fontSize: 17,
-                    height: 1.65,
-                    color: ink,
-                  ),
-                ),
-              ],
+        if (current is QuickFact) ...[
+          ..._quickFact(country, current.kind),
+          const SizedBox(height: 10),
+          _anotherFact(country),
+        ] else ...[
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: DiscoveryArt(
+              scene: funFact?.art ?? 'mountains',
+              height: 205,
             ),
           ),
           const SizedBox(height: 22),
-          _anotherFact(country),
-          const SizedBox(height: 12),
-          TextButton(
-            onPressed: () => showDialog<void>(
-              context: context,
-              builder: (context) => AlertDialog(
-                title: Text(
-                  s.t('Behind this discovery', 'Detrás de este descubrimiento'),
-                ),
-                content: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(current.sourceName),
-                      const SizedBox(height: 12),
-                      SelectableText(
-                        current.sourceUrl,
-                        style: const TextStyle(fontSize: 13, color: muted),
-                      ),
-                      const SizedBox(height: 14),
-                      Text(
-                        s.t(
-                          'Sample content · Editorial review pending',
-                          'Contenido de ejemplo · Revisión editorial pendiente',
-                        ),
-                      ),
-                    ],
+          if (funFact != null) ...[
+            _topicChip(funFact.topic),
+            const SizedBox(height: 13),
+            Semantics(
+              liveRegion: true,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    funFact.title.inLanguage(widget.language),
+                    key: ValueKey('title-${funFact.id}'),
+                    style: displayStyle(28),
                   ),
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: Text(s.close),
+                  const SizedBox(height: 13),
+                  Text(
+                    funFact.body.inLanguage(widget.language),
+                    key: ValueKey('body-${funFact.id}'),
+                    style: const TextStyle(
+                      fontSize: 17,
+                      height: 1.65,
+                      color: ink,
+                    ),
                   ),
                 ],
               ),
             ),
-            child: Text(
-              '${s.t('Source', 'Fuente')}: ${current.sourceName}',
-              style: const TextStyle(fontSize: 11, color: muted),
+            const SizedBox(height: 22),
+            _anotherFact(country),
+            const SizedBox(height: 12),
+            TextButton(
+              onPressed: () => showDialog<void>(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text(
+                    s.t(
+                      'Behind this discovery',
+                      'Detrás de este descubrimiento',
+                    ),
+                  ),
+                  content: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(funFact.sourceName),
+                        const SizedBox(height: 12),
+                        SelectableText(
+                          funFact.sourceUrl,
+                          style: const TextStyle(fontSize: 13, color: muted),
+                        ),
+                        const SizedBox(height: 14),
+                        Text(
+                          s.t(
+                            'Sample content · Editorial review pending',
+                            'Contenido de ejemplo · Revisión editorial pendiente',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text(s.close),
+                    ),
+                  ],
+                ),
+              ),
+              child: Text(
+                '${s.t('Source', 'Fuente')}: ${funFact.sourceName}',
+                style: const TextStyle(fontSize: 11, color: muted),
+              ),
             ),
-          ),
-        ] else ...[
-          _eyebrow(s.t('A PLACE TO DISCOVER', 'UN LUGAR POR DESCUBRIR')),
-          const SizedBox(height: 12),
-          Text(s.preview, style: displayStyle(29)),
-          const SizedBox(height: 14),
-          Text(
-            s.previewBody,
-            style: const TextStyle(color: muted, height: 1.6),
-          ),
-          const SizedBox(height: 24),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton.icon(
-              onPressed: surprise,
-              icon: const Icon(Icons.auto_awesome_rounded, size: 19),
-              label: Text(s.surprise),
+          ] else ...[
+            _eyebrow(s.t('A PLACE TO DISCOVER', 'UN LUGAR POR DESCUBRIR')),
+            const SizedBox(height: 12),
+            Text(s.preview, style: displayStyle(29)),
+            const SizedBox(height: 14),
+            Text(
+              s.previewBody,
+              style: const TextStyle(color: muted, height: 1.6),
             ),
-          ),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton.icon(
+                onPressed: surprise,
+                icon: const Icon(Icons.auto_awesome_rounded, size: 19),
+                label: Text(s.surprise),
+              ),
+            ),
+          ],
         ],
       ],
     );
   }
 
   Widget _anotherFact(Country country) =>
-      widget.data.factsFor(country.id).length > 1
+      widget.data.cardsFor(country.id).length > 1
       ? SizedBox(
           width: double.infinity,
           child: FilledButton.icon(
@@ -653,6 +666,143 @@ class _ExplorerHomeState extends State<ExplorerHome> {
           ),
           child: Text(s.collectionEnd, style: const TextStyle(fontSize: 14)),
         );
+
+  List<Widget> _quickFact(Country country, QuickKind kind) {
+    final profile = widget.data.profiles[country.id];
+    if (profile == null) return const [];
+    final name = country.name.inLanguage(widget.language);
+    final total = widget.data.profiles.length;
+    final (icon, headline, unit, lines, source) = switch (kind) {
+      QuickKind.people => (
+        Icons.groups_rounded,
+        s.amount(profile.population),
+        s.people.toLowerCase(),
+        [
+          s.populationSentence(name, s.amount(profile.population)),
+          s.populationRank(
+            widget.data.rank(country.id, (p) => p.population),
+            total,
+          ),
+        ],
+        s.source(s.worldBank, profile.populationYear),
+      ),
+      QuickKind.size => (
+        Icons.square_foot_rounded,
+        s.amount(profile.area),
+        s.areaUnit,
+        [
+          s.areaSentence(name, s.amount(profile.area)),
+          s.areaRank(widget.data.rank(country.id, (p) => p.area), total),
+        ],
+        s.source(s.worldBank, profile.areaYear),
+      ),
+      QuickKind.capital => (
+        Icons.account_balance_outlined,
+        profile.capitals
+            .map((c) => c.inLanguage(widget.language))
+            .join(s.t(' & ', ' y ')),
+        null,
+        [
+          s.capitalSentence(
+            name,
+            profile.capitals.map((c) => c.inLanguage(widget.language)).toList(),
+          ),
+        ],
+        s.source(s.naturalEarth),
+      ),
+      QuickKind.neighbours => (
+        Icons.share_location_rounded,
+        '${profile.neighbours.length}',
+        s.t('land neighbors', 'vecinos terrestres'),
+        [s.neighbourSentence(name, profile.neighbours.length)],
+        s.source(s.naturalEarth),
+      ),
+    };
+    final visitable = {for (final c in widget.data.countries) c.id: c};
+    return [
+      Semantics(
+        liveRegion: true,
+        child: Container(
+          key: Key('quick-${kind.name}'),
+          width: double.infinity,
+          padding: const EdgeInsets.all(22),
+          decoration: BoxDecoration(
+            color: mint,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(icon, color: forest, size: 30),
+              const SizedBox(height: 12),
+              Text(headline, style: displayStyle(34)),
+              if (unit != null) ...[
+                const SizedBox(height: 4),
+                Text(
+                  unit,
+                  style: const TextStyle(
+                    color: muted,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+      const SizedBox(height: 20),
+      for (final (i, line) in lines.indexed) ...[
+        Text(
+          line,
+          key: i == 0
+              ? ValueKey('body-${QuickFact(country.id, kind).id}')
+              : null,
+          style: const TextStyle(fontSize: 17, height: 1.6),
+        ),
+        const SizedBox(height: 10),
+      ],
+      if (kind == QuickKind.neighbours && profile.neighbours.isNotEmpty) ...[
+        const SizedBox(height: 4),
+        Wrap(
+          spacing: 7,
+          runSpacing: 7,
+          children: [
+            for (final n in profile.neighbours)
+              visitable[n.id] == null
+                  ? Chip(
+                      label: Text(n.name.inLanguage(widget.language)),
+                      labelStyle: const TextStyle(color: muted),
+                      backgroundColor: Colors.white,
+                      side: const BorderSide(color: line),
+                    )
+                  : ActionChip(
+                      key: Key('neighbour-${n.id}'),
+                      avatar: const Icon(
+                        Icons.arrow_outward_rounded,
+                        size: 16,
+                        color: forest,
+                      ),
+                      label: Text(n.name.inLanguage(widget.language)),
+                      labelStyle: const TextStyle(
+                        color: forest,
+                        fontWeight: FontWeight.w800,
+                      ),
+                      backgroundColor: mint,
+                      side: BorderSide.none,
+                      onPressed: () => select(visitable[n.id]!),
+                    ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Text(
+          s.tapNeighbour,
+          style: const TextStyle(color: muted, fontSize: 13),
+        ),
+      ],
+      const SizedBox(height: 12),
+      Text(source, style: const TextStyle(fontSize: 11, color: muted)),
+    ];
+  }
 
   Widget _eyebrow(String value) => Text(
     value,

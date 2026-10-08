@@ -35,7 +35,25 @@ class Country {
   final Path path;
 }
 
-class DiscoveryFact {
+/// Anything shown by "Another fact": a fun fact or a quick fact.
+abstract interface class DiscoveryCard {
+  String get id;
+  String get countryId;
+}
+
+enum QuickKind { people, size, capital, neighbours }
+
+/// A card generated from the country's [CountryProfile].
+class QuickFact implements DiscoveryCard {
+  const QuickFact(this.countryId, this.kind);
+  @override
+  final String countryId;
+  final QuickKind kind;
+  @override
+  String get id => '$countryId-${kind.name}';
+}
+
+class DiscoveryFact implements DiscoveryCard {
   DiscoveryFact({
     required this.id,
     required this.countryId,
@@ -56,8 +74,40 @@ class DiscoveryFact {
     sourceName: json['sourceName'] as String,
     sourceUrl: json['sourceUrl'] as String,
   );
-  final String id, countryId, topic, art, sourceName, sourceUrl;
+  @override
+  final String id, countryId;
+  final String topic, art, sourceName, sourceUrl;
   final LocalText title, body;
+}
+
+/// Structured quick facts shown alongside the random fact collection.
+class CountryProfile {
+  CountryProfile({
+    required this.population,
+    required this.populationYear,
+    required this.area,
+    required this.areaYear,
+    required this.capitals,
+    required this.neighbours,
+  });
+  factory CountryProfile.fromJson(Map<String, dynamic> json) => CountryProfile(
+    population: json['population']['value'] as int,
+    populationYear: json['population']['year'] as int,
+    area: (json['area']['value'] as num).toDouble(),
+    areaYear: json['area']['year'] as int,
+    capitals: (json['capitals'] as List<dynamic>)
+        .map((item) => LocalText.fromJson(item))
+        .toList(),
+    neighbours: (json['neighbours'] as List<dynamic>)
+        .map(
+          (item) => (id: item['id'] as String, name: LocalText.fromJson(item)),
+        )
+        .toList(),
+  );
+  final int population, populationYear, areaYear;
+  final double area;
+  final List<LocalText> capitals;
+  final List<({String id, LocalText name})> neighbours;
 }
 
 Path parsePolygons(List<dynamic> polygons) {
@@ -156,9 +206,14 @@ class AtlasContinent {
 }
 
 class AtlasData {
-  AtlasData({required this.continents, required this.facts});
+  AtlasData({
+    required this.continents,
+    required this.facts,
+    this.profiles = const {},
+  });
   final List<AtlasContinent> continents;
   final List<DiscoveryFact> facts;
+  final Map<String, CountryProfile> profiles;
 
   List<Country> get countries => [for (final c in continents) ...c.countries];
 
@@ -169,6 +224,7 @@ class AtlasData {
     final files = await Future.wait([
       rootBundle.loadString('assets/data/map.json'),
       rootBundle.loadString('assets/data/facts.json'),
+      rootBundle.loadString('assets/data/profiles.json'),
     ]);
     final map = jsonDecode(files[0]) as Map<String, dynamic>;
     return AtlasData(
@@ -178,23 +234,41 @@ class AtlasData {
       facts: (jsonDecode(files[1]) as List<dynamic>)
           .map((item) => DiscoveryFact.fromJson(item))
           .toList(),
+      profiles: {
+        for (final MapEntry(:key, :value)
+            in (jsonDecode(files[2])['countries'] as Map<String, dynamic>)
+                .entries)
+          key: CountryProfile.fromJson(value),
+      },
     );
   }
 
   List<DiscoveryFact> factsFor(String id) =>
       facts.where((f) => f.countryId == id).toList();
+
+  /// Every card "Another fact" cycles through: fun facts, then quick facts.
+  List<DiscoveryCard> cardsFor(String id) => [
+    ...factsFor(id),
+    if (profiles.containsKey(id))
+      for (final kind in QuickKind.values) QuickFact(id, kind),
+  ];
+
+  /// 1-based position among all countries in the atlas, largest first.
+  int rank(String id, num Function(CountryProfile) measure) =>
+      1 +
+      profiles.values.where((p) => measure(p) > measure(profiles[id]!)).length;
 }
 
 /// A separate shuffle bag per country. Translations never participate in draws.
 class FactBag {
   FactBag({Random? random}) : _random = random ?? Random();
   final Random _random;
-  final Map<String, List<DiscoveryFact>> _bags = {};
-  final Map<String, DiscoveryFact> _last = {};
+  final Map<String, List<DiscoveryCard>> _bags = {};
+  final Map<String, DiscoveryCard> _last = {};
 
-  DiscoveryFact? current(String countryId) => _last[countryId];
+  DiscoveryCard? current(String countryId) => _last[countryId];
 
-  DiscoveryFact? draw(String countryId, List<DiscoveryFact> facts) {
+  DiscoveryCard? draw(String countryId, List<DiscoveryCard> facts) {
     if (facts.isEmpty) return null;
     assert(facts.every((fact) => fact.countryId == countryId));
     var bag = _bags[countryId];

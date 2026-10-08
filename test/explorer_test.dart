@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:americas_explorer/app.dart';
 import 'package:americas_explorer/models.dart';
+import 'package:americas_explorer/strings.dart';
 import 'package:americas_explorer/widgets/atlas_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -58,6 +59,21 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(Key('pick-$id')));
     await tester.pumpAndSettle();
+  }
+
+  Future<void> tapKey(WidgetTester tester, String key) async {
+    final target = find.byKey(Key(key));
+    await tester.ensureVisible(target);
+    await tester.tap(target);
+    await tester.pumpAndSettle();
+  }
+
+  // "Another fact" never repeats within a cycle, so every card appears in time.
+  Future<void> showCard(WidgetTester tester, String key) async {
+    for (var i = 0; i < 10 && find.byKey(Key(key)).evaluate().isEmpty; i++) {
+      await tapKey(tester, 'another-fact');
+    }
+    expect(find.byKey(Key(key)), findsOneWidget);
   }
 
   String visibleFactId(WidgetTester tester) => tester
@@ -121,6 +137,55 @@ void main() {
       data.facts.where((f) => asia.countries.any((c) => c.id == f.countryId)),
       isNotEmpty,
     );
+  });
+
+  test('quick facts cover every country and follow the map', () {
+    expect(data.profiles.keys.toSet(), data.countries.map((c) => c.id).toSet());
+    for (final profile in data.profiles.values) {
+      expect(profile.population, greaterThan(0));
+      expect(profile.area, greaterThan(0));
+      expect(profile.capitals, isNotEmpty);
+    }
+    Set<String> neighbours(String id) =>
+        data.profiles[id]!.neighbours.map((n) => n.id).toSet();
+    expect(neighbours('IND'), containsAll(['AFG', 'PAK', 'CHN', 'NPL']));
+    expect(neighbours('IND'), isNot(contains('KAS')));
+    expect(neighbours('PAK'), isNot(contains('CHN')));
+    expect(neighbours('USA'), {'CAN', 'MEX'});
+    expect(neighbours('JPN'), isEmpty);
+    expect(
+      data.rank('CHN', (p) => p.area),
+      lessThan(data.rank('IND', (p) => p.area)),
+    );
+    expect(data.rank('IND', (p) => p.population), 1);
+  });
+
+  test('quick fact numbers read naturally in both languages', () {
+    const en = Strings(AppLanguage.en), es = Strings(AppLanguage.es);
+    expect(en.amount(1463865525), '1.46 billion');
+    expect(es.amount(1463865525), '1460 millones');
+    expect(en.amount(341784857), '342 million');
+    expect(es.amount(341784857), '342 millones');
+    expect(en.amount(3287260), '3.29 million');
+    expect(es.amount(3287260), '3 290 000');
+    expect(en.amount(529676), '530,000');
+    expect(es.amount(529676), '530 000');
+    expect(en.amount(750), '750');
+    expect(
+      es.populationSentence('India', es.amount(1463865525)),
+      'En India viven unas 1460 millones de personas.',
+    );
+    expect([1, 2, 3, 4, 11, 12, 13, 21, 22].map(en.ordinal), [
+      '1st',
+      '2nd',
+      '3rd',
+      '4th',
+      '11th',
+      '12th',
+      '13th',
+      '21st',
+      '22nd',
+    ]);
   });
 
   testWidgets('map hit testing selects a country, including after zoom', (
@@ -190,9 +255,10 @@ void main() {
       final controller = tester
           .widget<InteractiveViewer>(find.byKey(const Key('interactive-map')))
           .transformationController!;
+      // Countries without fun facts still cycle through their quick facts.
       await pick(tester, 'CAN', 'canada');
-      expect(find.text('Pronto habrá más sorpresas'), findsOneWidget);
-      expect(find.byKey(const Key('another-fact')), findsNothing);
+      expect(find.text('Pronto habrá más sorpresas'), findsNothing);
+      expect(find.byKey(const Key('another-fact')), findsOneWidget);
       await tester.tap(find.byKey(const Key('back-to-map')));
       await tester.pumpAndSettle();
       expect(controller.value.getMaxScaleOnAxis(), closeTo(1.5, .01));
@@ -239,6 +305,10 @@ void main() {
     expect(tester.takeException(), isNull);
     await pick(tester, 'USA', 'estados');
     expect(tester.takeException(), isNull);
+    for (var i = 0; i < 6; i++) {
+      await tapKey(tester, 'another-fact');
+      expect(tester.takeException(), isNull, reason: visibleFactId(tester));
+    }
     await tester.drag(
       find.byType(SingleChildScrollView).first,
       const Offset(0, -600),
@@ -368,6 +438,39 @@ void main() {
     expect(painter().continent.id, 'asia');
     expect(find.text('Japan'), findsOneWidget);
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('quick facts appear among facts and neighbours are visitable', (
+    tester,
+  ) async {
+    await boot(tester);
+    await pick(tester, 'IND', 'india');
+    await showCard(tester, 'quick-people');
+    expect(
+      find.text('About 1.46 billion people live in India.'),
+      findsOneWidget,
+    );
+    expect(find.textContaining('the most people of all 82'), findsOneWidget);
+    await showCard(tester, 'quick-neighbours');
+    await tapKey(tester, 'neighbour-PAK');
+    expect(find.text('Pakistan'), findsOneWidget);
+    await showCard(tester, 'quick-capital');
+    expect(find.text('The capital of Pakistan is Islamabad.'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('language-es')));
+    await tester.pumpAndSettle();
+    expect(find.text('La capital de Pakistán es Islamabad.'), findsOneWidget);
+    expect(find.byKey(const Key('view-people')), findsNothing);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('tablet quick facts visual', (tester) async {
+    await boot(tester, size: const Size(1280, 960));
+    await pick(tester, 'IND', 'india');
+    await showCard(tester, 'quick-neighbours');
+    await expectLater(
+      find.byKey(const Key('capture')),
+      matchesGoldenFile('goldens/tablet-quick-facts.png'),
+    );
   });
 
   testWidgets('phone Spanish fact visual', (tester) async {
