@@ -67,8 +67,9 @@ void main() {
       .value;
 
   test('bundled data covers the Americas and all demonstration topics', () {
-    expect(data.countries.length, 35);
-    expect(data.countries.map((c) => c.id).toSet().length, 35);
+    final americas = data.continent('americas');
+    expect(americas.countries.length, 35);
+    expect(americas.countries.map((c) => c.id).toSet().length, 35);
     expect(data.facts.map((f) => f.topic).toSet().length, 6);
     expect(data.facts.map((f) => f.id).toSet().length, data.facts.length);
     for (final fact in data.facts) {
@@ -80,8 +81,27 @@ void main() {
     expect(data.countries.any((c) => c.id == 'FLK'), isFalse);
     // The source's Esequiba mask is non-interactive even inside a country outline.
     final point = Offset((-59.5 + 170) * 6, (84 - 6.5) * 6);
-    expect(data.deferred.contains(point), isTrue);
-    expect(data.countryAt(point), isNull);
+    expect(americas.deferred.contains(point), isTrue);
+    expect(americas.countryAt(point), isNull);
+  });
+
+  test('bundled data covers Asia with deferred disputed areas', () {
+    final asia = data.continent('asia');
+    Offset at(double lon, double lat) => Offset((lon - 22) * 6, (62 - lat) * 6);
+    expect(asia.countries.length, 47);
+    expect(data.countries.map((c) => c.id).toSet().length, 35 + 47);
+    for (final id in ['CHN', 'IND', 'JPN', 'IDN', 'SAU', 'TUR', 'MDV']) {
+      expect(asia.countries.any((c) => c.id == id), isTrue, reason: id);
+    }
+    for (final id in ['TWN', 'PSX', 'CYN', 'HKG', 'MAC']) {
+      expect(data.countries.any((c) => c.id == id), isFalse, reason: id);
+    }
+    expect(asia.countryAt(at(78.9, 22.5))?.id, 'IND');
+    expect(asia.countryAt(at(138.5, 36.2))?.id, 'JPN');
+    expect(asia.countryAt(at(34.9, 31.5))?.id, 'ISR');
+    // Taiwan and Kashmir stay neutral and non-interactive.
+    expect(asia.countryAt(at(121, 23.7)), isNull);
+    expect(asia.countryAt(at(75.3, 34.1)), isNull);
   });
 
   testWidgets('map hit testing selects a country, including after zoom', (
@@ -209,6 +229,16 @@ void main() {
     );
   });
 
+  testWidgets('tablet Asia visual', (tester) async {
+    await boot(tester, size: const Size(1280, 960));
+    await tester.tap(find.byKey(const Key('continent-asia')));
+    await tester.pumpAndSettle();
+    await expectLater(
+      find.byKey(const Key('capture')),
+      matchesGoldenFile('goldens/tablet-asia.png'),
+    );
+  });
+
   testWidgets('landscape search remains usable above the keyboard', (
     tester,
   ) async {
@@ -271,6 +301,47 @@ void main() {
     await tester.pumpAndSettle();
     expect(controller.value, isNot(before));
     expect(find.byKey(const Key('country-name')), findsNothing);
+  });
+
+  testWidgets('continent switch keeps zoom and search jumps continents', (
+    tester,
+  ) async {
+    await boot(tester);
+    TransformationController controller() => tester
+        .widget<InteractiveViewer>(find.byKey(const Key('interactive-map')))
+        .transformationController!;
+    AtlasPainter painter() =>
+        tester
+                .widget<CustomPaint>(
+                  find.byWidgetPredicate(
+                    (w) => w is CustomPaint && w.painter is AtlasPainter,
+                  ),
+                )
+                .painter!
+            as AtlasPainter;
+    await tester.tap(find.byKey(const Key('zoom-in')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('continent-asia')));
+    await tester.pumpAndSettle();
+    expect(painter().continent.id, 'asia');
+    expect(controller().value.getMaxScaleOnAxis(), 1);
+    final origin = tester.getTopLeft(
+      find.byWidgetPredicate(
+        (w) => w is CustomPaint && w.painter is AtlasPainter,
+      ),
+    );
+    final india = data.countries.firstWhere((c) => c.id == 'IND');
+    await tester.tapAt(origin + painter().geometry.toScreen(india.label));
+    await tester.pumpAndSettle();
+    expect(find.text('India'), findsOneWidget);
+    expect(find.text('South Asia'), findsOneWidget);
+    await pick(tester, 'MEX', 'mexico');
+    expect(painter().continent.id, 'americas');
+    expect(controller().value.getMaxScaleOnAxis(), closeTo(1.5, .01));
+    await pick(tester, 'JPN', 'japon');
+    expect(painter().continent.id, 'asia');
+    expect(find.text('Japan'), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('phone Spanish fact visual', (tester) async {

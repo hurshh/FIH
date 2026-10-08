@@ -20,6 +20,7 @@ class Country {
   Country({
     required this.id,
     required this.name,
+    required this.continent,
     required this.region,
     required this.colorIndex,
     required this.label,
@@ -27,6 +28,7 @@ class Country {
   });
   final String id;
   final LocalText name;
+  final String continent;
   final String region;
   final int colorIndex;
   final Offset label;
@@ -73,38 +75,36 @@ Path parsePolygons(List<dynamic> polygons) {
   return path;
 }
 
-class AtlasData {
-  AtlasData({
+/// One continent's map: selectable countries plus non-interactive layers.
+class AtlasContinent {
+  AtlasContinent({
+    required this.id,
     required this.countries,
-    required this.facts,
     required this.context,
     required this.deferred,
     required this.mapSize,
   });
+  final String id;
   final List<Country> countries;
-  final List<DiscoveryFact> facts;
   final Path context, deferred;
   final Size mapSize;
 
-  static Future<AtlasData> load() async {
-    final files = await Future.wait([
-      rootBundle.loadString('assets/data/map.json'),
-      rootBundle.loadString('assets/data/facts.json'),
-    ]);
-    final map = jsonDecode(files[0]) as Map<String, dynamic>;
+  factory AtlasContinent.fromJson(Map<String, dynamic> json) {
+    final id = json['id'] as String;
     final deferred = Path();
-    for (final item in map['deferred']) {
+    for (final item in json['deferred']) {
       deferred.addPath(parsePolygons(item['polygons']), Offset.zero);
     }
     final context = Path();
-    for (final item in map['context']) {
+    for (final item in json['context']) {
       context.addPath(parsePolygons(item['polygons']), Offset.zero);
     }
-    final countries = (map['countries'] as List<dynamic>).map((item) {
+    final countries = (json['countries'] as List<dynamic>).map((item) {
       final original = parsePolygons(item['polygons']);
       return Country(
         id: item['id'],
         name: LocalText(item['en'], item['es']),
+        continent: id,
         region: item['region'],
         colorIndex: item['color'],
         label: Offset(
@@ -114,22 +114,17 @@ class AtlasData {
         path: Path.combine(PathOperation.difference, original, deferred),
       );
     }).toList();
-    return AtlasData(
+    return AtlasContinent(
+      id: id,
       countries: countries,
-      facts: (jsonDecode(files[1]) as List<dynamic>)
-          .map((item) => DiscoveryFact.fromJson(item))
-          .toList(),
       context: context,
       deferred: deferred,
       mapSize: Size(
-        (map['width'] as num).toDouble(),
-        (map['height'] as num).toDouble(),
+        (json['width'] as num).toDouble(),
+        (json['height'] as num).toDouble(),
       ),
     );
   }
-
-  List<DiscoveryFact> factsFor(String id) =>
-      facts.where((f) => f.countryId == id).toList();
 
   Country? countryAt(Offset point) {
     if (deferred.contains(point)) return null;
@@ -138,6 +133,36 @@ class AtlasData {
     }
     return null;
   }
+}
+
+class AtlasData {
+  AtlasData({required this.continents, required this.facts});
+  final List<AtlasContinent> continents;
+  final List<DiscoveryFact> facts;
+
+  List<Country> get countries => [for (final c in continents) ...c.countries];
+
+  AtlasContinent continent(String id) =>
+      continents.firstWhere((c) => c.id == id);
+
+  static Future<AtlasData> load() async {
+    final files = await Future.wait([
+      rootBundle.loadString('assets/data/map.json'),
+      rootBundle.loadString('assets/data/facts.json'),
+    ]);
+    final map = jsonDecode(files[0]) as Map<String, dynamic>;
+    return AtlasData(
+      continents: (map['continents'] as List<dynamic>)
+          .map((item) => AtlasContinent.fromJson(item))
+          .toList(),
+      facts: (jsonDecode(files[1]) as List<dynamic>)
+          .map((item) => DiscoveryFact.fromJson(item))
+          .toList(),
+    );
+  }
+
+  List<DiscoveryFact> factsFor(String id) =>
+      facts.where((f) => f.countryId == id).toList();
 }
 
 /// A separate shuffle bag per country. Translations never participate in draws.

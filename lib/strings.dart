@@ -13,7 +13,7 @@ class Strings {
   );
   String get offline =>
       t('Ready for offline adventures', 'Aventuras sin conexión');
-  String get explore => t('Explore the Americas', 'Explora las Américas');
+  String get explore => t('Explore', 'Explora');
   String get mapHint =>
       t('Pinch to zoom · Tap a country', 'Amplía con dos dedos · Toca un país');
   String get countries => t('Find a country', 'Busca un país');
@@ -36,8 +36,20 @@ class Strings {
   String get surprise => t('Surprise me', 'Sorpréndeme');
   String get all => t('All places', 'Todos');
   String get withFacts => t('With discoveries', 'Con descubrimientos');
-  String get north => t('North America', 'América del Norte');
-  String get south => t('South America', 'América del Sur');
+  String continent(String id) => switch (id) {
+    'asia' => 'Asia',
+    _ => t('Americas', 'Américas'),
+  };
+  String region(String id) => switch (id) {
+    'north' => t('North America', 'América del Norte'),
+    'south' => t('South America', 'América del Sur'),
+    'east-asia' => t('East Asia', 'Asia oriental'),
+    'southeast-asia' => t('Southeast Asia', 'Sudeste asiático'),
+    'south-asia' => t('South Asia', 'Asia del Sur'),
+    'central-asia' => t('Central Asia', 'Asia central'),
+    'west-asia' => t('West Asia', 'Asia occidental'),
+    _ => '',
+  };
   String get reset => t('Reset map', 'Restablecer mapa');
   String get zoomIn => t('Zoom in', 'Acercar');
   String get zoomOut => t('Zoom out', 'Alejar');

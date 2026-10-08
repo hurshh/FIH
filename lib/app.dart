@@ -90,6 +90,7 @@ class ExplorerHome extends StatefulWidget {
 class _ExplorerHomeState extends State<ExplorerHome> {
   late final FactBag bag = FactBag(random: widget.random);
   late final Random random = widget.random ?? Random();
+  late String continent = widget.data.continents.first.id;
   Country? selected;
   DiscoveryFact? fact;
   final factScroll = ScrollController();
@@ -103,6 +104,7 @@ class _ExplorerHomeState extends State<ExplorerHome> {
 
   void select(Country country) {
     setState(() {
+      continent = country.continent;
       selected = country;
       fact =
           bag.current(country.id) ??
@@ -398,9 +400,11 @@ class _ExplorerHomeState extends State<ExplorerHome> {
   Widget _map() => AtlasMap(
     key: const ValueKey('atlas-map'),
     data: widget.data,
+    continent: widget.data.continent(continent),
     language: widget.language,
     selectedId: selected?.id,
     onSelect: select,
+    onContinent: (id) => setState(() => continent = id),
     onFind: findCountry,
   );
 
@@ -528,7 +532,7 @@ class _ExplorerHomeState extends State<ExplorerHome> {
         ),
         const SizedBox(height: 4),
         Text(
-          country.region == 'north' ? s.north : s.south,
+          s.region(country.region),
           style: const TextStyle(color: muted, fontSize: 13),
         ),
         const SizedBox(height: 19),
@@ -564,28 +568,7 @@ class _ExplorerHomeState extends State<ExplorerHome> {
             ),
           ),
           const SizedBox(height: 22),
-          if (widget.data.factsFor(country.id).length > 1)
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton.icon(
-                key: const Key('another-fact'),
-                onPressed: nextFact,
-                icon: const Icon(Icons.shuffle_rounded, size: 20),
-                label: Text(s.another),
-              ),
-            )
-          else
-            Container(
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: mint,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Text(
-                s.collectionEnd,
-                style: const TextStyle(fontSize: 14),
-              ),
-            ),
+          _anotherFact(country),
           const SizedBox(height: 12),
           TextButton(
             onPressed: () => showDialog<void>(
@@ -650,6 +633,26 @@ class _ExplorerHomeState extends State<ExplorerHome> {
       ],
     );
   }
+
+  Widget _anotherFact(Country country) =>
+      widget.data.factsFor(country.id).length > 1
+      ? SizedBox(
+          width: double.infinity,
+          child: FilledButton.icon(
+            key: const Key('another-fact'),
+            onPressed: nextFact,
+            icon: const Icon(Icons.shuffle_rounded, size: 20),
+            label: Text(s.another),
+          ),
+        )
+      : Container(
+          padding: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            color: mint,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Text(s.collectionEnd, style: const TextStyle(fontSize: 14)),
+        );
 
   Widget _eyebrow(String value) => Text(
     value,

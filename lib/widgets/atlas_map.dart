@@ -11,27 +11,35 @@ class AtlasMap extends StatefulWidget {
   const AtlasMap({
     super.key,
     required this.data,
+    required this.continent,
     required this.language,
     required this.selectedId,
     required this.onSelect,
+    required this.onContinent,
     required this.onFind,
   });
   final AtlasData data;
+  final AtlasContinent continent;
   final AppLanguage language;
   final String? selectedId;
   final ValueChanged<Country> onSelect;
+  final ValueChanged<String> onContinent;
   final VoidCallback onFind;
   @override
   State<AtlasMap> createState() => _AtlasMapState();
 }
 
 class _AtlasMapState extends State<AtlasMap> {
-  final transform = TransformationController();
+  // Each continent keeps its own pan and zoom while the other is shown.
+  final transforms = <String, TransformationController>{};
+  TransformationController get transform =>
+      transforms.putIfAbsent(widget.continent.id, TransformationController.new);
   Size viewport = Size.zero;
-  bool get zoomed => transform.value.getMaxScaleOnAxis() > 1.05;
   @override
   void dispose() {
-    transform.dispose();
+    for (final transform in transforms.values) {
+      transform.dispose();
+    }
     super.dispose();
   }
 
@@ -47,6 +55,48 @@ class _AtlasMapState extends State<AtlasMap> {
       ..setEntry(1, 3, center.dy - point.dy * next);
     if (next == 1) transform.value = Matrix4.identity();
   }
+
+  Widget _continentSwitch(Strings s) => Semantics(
+    label: s.explore,
+    child: DecoratedBox(
+      decoration: BoxDecoration(
+        color: cream.withValues(alpha: .7),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: widget.data.continents.map((continent) {
+          final active = continent.id == widget.continent.id;
+          return Padding(
+            padding: const EdgeInsets.all(3),
+            child: Semantics(
+              selected: active,
+              child: TextButton(
+                key: Key('continent-${continent.id}'),
+                onPressed: () => widget.onContinent(continent.id),
+                style: TextButton.styleFrom(
+                  minimumSize: const Size(44, 40),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  backgroundColor: active ? Colors.white : Colors.transparent,
+                  foregroundColor: active ? forest : muted,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(11),
+                  ),
+                ),
+                child: Text(
+                  s.continent(continent.id),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +114,9 @@ class _AtlasMapState extends State<AtlasMap> {
                   const Icon(Icons.explore_outlined, color: forest, size: 20),
                   const SizedBox(width: 9),
                   Expanded(
-                    child: Text(
-                      s.explore,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 15,
-                      ),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: _continentSwitch(s),
                     ),
                   ),
                   IconButton(
@@ -85,7 +132,10 @@ class _AtlasMapState extends State<AtlasMap> {
               child: LayoutBuilder(
                 builder: (context, constraints) {
                   viewport = constraints.biggest;
-                  final geometry = MapGeometry(viewport, widget.data.mapSize);
+                  final geometry = MapGeometry(
+                    viewport,
+                    widget.continent.mapSize,
+                  );
                   return Stack(
                     children: [
                       Positioned.fill(
@@ -101,13 +151,14 @@ class _AtlasMapState extends State<AtlasMap> {
                               final point = geometry.toMap(
                                 details.localPosition,
                               );
-                              final country = widget.data.countryAt(point);
+                              final country = widget.continent.countryAt(point);
                               if (country != null) widget.onSelect(country);
                             },
                             child: CustomPaint(
                               size: viewport,
                               painter: AtlasPainter(
                                 data: widget.data,
+                                continent: widget.continent,
                                 geometry: geometry,
                                 language: widget.language,
                                 selectedId: widget.selectedId,
@@ -221,6 +272,58 @@ class _AtlasMapState extends State<AtlasMap> {
   }
 }
 
+/// Hand-placed decoration for each continent, in map units.
+class MapStyle {
+  const MapStyle({
+    required this.oceans,
+    required this.labelled,
+    required this.compass,
+    this.smallLabels = const {},
+    this.fadeEdges = false,
+  });
+  final List<({List<String> en, List<String> es, Offset at})> oceans;
+  final Set<String> labelled, smallLabels;
+  final Offset compass;
+  // Neighbouring land is clipped to the map window, so soften the cut edges.
+  final bool fadeEdges;
+  static const byContinent = {
+    'americas': MapStyle(
+      oceans: [
+        (
+          en: ['PACIFIC', 'OCEAN'],
+          es: ['OCÉANO', 'PACÍFICO'],
+          at: Offset(254, 500),
+        ),
+        (
+          en: ['ATLANTIC', 'OCEAN'],
+          es: ['OCÉANO', 'ATLÁNTICO'],
+          at: Offset(750, 338),
+        ),
+      ],
+      labelled: {'CAN', 'USA', 'MEX', 'BRA', 'PER', 'ARG', 'COL'},
+      smallLabels: {'USA'},
+      compass: Offset(119, 690),
+    ),
+    'asia': MapStyle(
+      oceans: [
+        (
+          en: ['INDIAN', 'OCEAN'],
+          es: ['OCÉANO', 'ÍNDICO'],
+          at: Offset(396, 384),
+        ),
+        (
+          en: ['PACIFIC', 'OCEAN'],
+          es: ['OCÉANO', 'PACÍFICO'],
+          at: Offset(696, 264),
+        ),
+      ],
+      labelled: {'CHN', 'IND', 'KAZ', 'MNG', 'SAU', 'IRN', 'IDN', 'TUR', 'JPN'},
+      compass: Offset(168, 408),
+      fadeEdges: true,
+    ),
+  };
+}
+
 class MapGeometry {
   MapGeometry(this.viewport, this.mapSize);
   final Size viewport, mapSize;
@@ -241,12 +344,14 @@ class MapGeometry {
 class AtlasPainter extends CustomPainter {
   AtlasPainter({
     required this.data,
+    required this.continent,
     required this.geometry,
     required this.language,
     required this.selectedId,
     required this.onSelect,
   });
   final AtlasData data;
+  final AtlasContinent continent;
   final MapGeometry geometry;
   final AppLanguage language;
   final String? selectedId;
@@ -279,7 +384,6 @@ class AtlasPainter extends CustomPainter {
 
   @override
   void paint(Canvas c, Size size) {
-    final s = Strings(language);
     final grid = Paint()
       ..color = const Color(0xFFCADCD5).withValues(alpha: .45)
       ..strokeWidth = .6;
@@ -291,8 +395,32 @@ class AtlasPainter extends CustomPainter {
     c.save();
     c.translate(geometry.origin.dx, geometry.origin.dy);
     c.scale(geometry.scale);
-    c.drawPath(data.context, Paint()..color = const Color(0xFFD5DFD5));
-    for (final country in data.countries) {
+    final style = MapStyle.byContinent[continent.id]!;
+    if (style.fadeEdges) {
+      final bounds = Offset.zero & continent.mapSize;
+      c.saveLayer(bounds, Paint());
+      c.drawPath(continent.context, Paint()..color = const Color(0xFFD5DFD5));
+      const fade = 40.0;
+      void edge(Rect r, Alignment from) => c.drawRect(
+        r,
+        Paint()
+          ..blendMode = BlendMode.dstOut
+          ..shader = LinearGradient(
+            begin: from,
+            end: -from,
+            colors: const [Color(0xFF000000), Color(0x00000000)],
+          ).createShader(r),
+      );
+      final w = bounds.width, h = bounds.height;
+      edge(Rect.fromLTWH(0, 0, fade, h), Alignment.centerLeft);
+      edge(Rect.fromLTWH(w - fade, 0, fade, h), Alignment.centerRight);
+      edge(Rect.fromLTWH(0, 0, w, fade), Alignment.topCenter);
+      edge(Rect.fromLTWH(0, h - fade, w, fade), Alignment.bottomCenter);
+      c.restore();
+    } else {
+      c.drawPath(continent.context, Paint()..color = const Color(0xFFD5DFD5));
+    }
+    for (final country in continent.countries) {
       final selected = country.id == selectedId;
       c.drawPath(
         country.path.shift(const Offset(0, 3)),
@@ -315,64 +443,41 @@ class AtlasPainter extends CustomPainter {
       );
     }
     // Masks are deliberately neutral and non-interactive, including on zoom.
-    c.drawPath(data.deferred, Paint()..color = const Color(0xFFD5DFD5));
-    text(
-      c,
-      s.t('PACIFIC', 'OCÉANO'),
-      const Offset(254, 500),
-      14,
-      const Color(0xFF8AA79F),
-    );
-    text(
-      c,
-      s.t('OCEAN', 'PACÍFICO'),
-      const Offset(254, 523),
-      14,
-      const Color(0xFF8AA79F),
-    );
-    text(
-      c,
-      s.t('ATLANTIC', 'OCÉANO'),
-      const Offset(750, 338),
-      14,
-      const Color(0xFF8AA79F),
-    );
-    text(
-      c,
-      s.t('OCEAN', 'ATLÁNTICO'),
-      const Offset(750, 361),
-      14,
-      const Color(0xFF8AA79F),
-    );
-    for (final country in data.countries) {
-      if ([
-        'CAN',
-        'USA',
-        'MEX',
-        'BRA',
-        'PER',
-        'ARG',
-        'COL',
-      ].contains(country.id)) {
+    c.drawPath(continent.deferred, Paint()..color = const Color(0xFFD5DFD5));
+    for (final ocean in style.oceans) {
+      final lines = language == AppLanguage.en ? ocean.en : ocean.es;
+      for (var i = 0; i < lines.length; i++) {
+        text(
+          c,
+          lines[i],
+          ocean.at + Offset(0, 23.0 * i),
+          14,
+          const Color(0xFF8AA79F),
+        );
+      }
+    }
+    for (final country in continent.countries) {
+      final labelled = style.labelled.contains(country.id);
+      if (labelled) {
         final name = country.name.inLanguage(language);
         final p = country.label;
         text(
           c,
           name.toUpperCase(),
           p,
-          (country.id == 'USA' ? 8.5 : 10) / geometry.scale,
+          (style.smallLabels.contains(country.id) ? 8.5 : 10) / geometry.scale,
           ink.withValues(alpha: .78),
           bold: true,
         );
       }
       if (data.factsFor(country.id).isNotEmpty) {
-        final point = country.label + const Offset(0, 19);
+        final point = country.label + Offset(0, labelled ? 19 : 0);
         c.drawCircle(point, 7.5, Paint()..color = cream);
         c.drawCircle(point, 4, Paint()..color = forest);
       }
     }
     // Small, decorative compass rose.
-    const p = Offset(119, 690);
+    final p = style.compass;
     c.drawCircle(
       p,
       29,
@@ -396,7 +501,7 @@ class AtlasPainter extends CustomPainter {
 
   @override
   SemanticsBuilderCallback get semanticsBuilder =>
-      (size) => data.countries.map((country) {
+      (size) => continent.countries.map((country) {
         final bounds = country.path.getBounds();
         return CustomPainterSemantics(
           rect: Rect.fromPoints(
@@ -415,6 +520,7 @@ class AtlasPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(AtlasPainter oldDelegate) =>
+      oldDelegate.continent != continent ||
       oldDelegate.selectedId != selectedId ||
       oldDelegate.language != language ||
       oldDelegate.geometry.viewport != geometry.viewport;
