@@ -29,6 +29,7 @@ void main() {
     AppLanguage language = AppLanguage.en,
     double textScale = 1,
     Future<void> Function(AppLanguage)? persist,
+    AtlasData? atlas,
   }) async {
     tester.view.devicePixelRatio = 1;
     tester.view.physicalSize = size;
@@ -40,7 +41,7 @@ void main() {
       RepaintBoundary(
         key: const Key('capture'),
         child: AtlasApp(
-          data: data,
+          data: atlas ?? data,
           initialLanguage: language,
           random: Random(7),
           persistLanguage: persist,
@@ -204,7 +205,14 @@ void main() {
   testWidgets('single-fact country and empty search have usable states', (
     tester,
   ) async {
-    await boot(tester);
+    // Every bundled country has several facts, so keep one for this state.
+    final single = AtlasData(
+      continents: data.continents,
+      facts: data.facts
+          .where((f) => f.countryId != 'USA' || f.id == 'usa-basketball')
+          .toList(),
+    );
+    await boot(tester, atlas: single);
     await pick(tester, 'USA', 'United States');
     expect(find.byKey(const Key('another-fact')), findsNothing);
     expect(

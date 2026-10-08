@@ -144,6 +144,42 @@
     "sourceChecked": "2026-09-09"
   },
   {
+    "id": "usa-yellowstone",
+    "country": "USA",
+    "topic": "landmarks",
+    "art": "mountains",
+    "title": {
+      "en": "The very first national park.",
+      "es": "El primer parque nacional."
+    },
+    "body": {
+      "en": "Yellowstone, in the United States, became the world’s first national park in 1872. A national park protects a special natural place so people can visit it for years to come.",
+      "es": "Yellowstone, en Estados Unidos, se convirtió en el primer parque nacional del mundo en 1872. Un parque nacional protege un lugar natural especial para que la gente pueda visitarlo durante muchos años."
+    },
+    "sourceName": "U.S. National Park Service",
+    "sourceUrl": "https://www.nps.gov/yell/learn/historyculture/index.htm",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-23"
+  },
+  {
+    "id": "usa-first-flight",
+    "country": "USA",
+    "topic": "inventions",
+    "art": "mountains",
+    "title": {
+      "en": "Twelve seconds in the sky.",
+      "es": "Doce segundos en el cielo."
+    },
+    "body": {
+      "en": "On December 17, 1903, at Kitty Hawk, North Carolina, Orville Wright flew the Wright brothers’ airplane for 12 seconds. It traveled 36 meters and started the age of airplanes!",
+      "es": "El 17 de diciembre de 1903, en Kitty Hawk, Carolina del Norte, Orville Wright voló el avión de los hermanos Wright durante 12 segundos. Recorrió 36 metros, ¡y así comenzó la era de los aviones!"
+    },
+    "sourceName": "Smithsonian National Air and Space Museum",
+    "sourceUrl": "https://airandspace.si.edu/collection-objects/1903-wright-flyer/nasm_A19610048000",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-23"
+  },
+  {
     "id": "jpn-instant-noodles",
     "country": "JPN",
     "topic": "inventions",
@@ -198,6 +234,42 @@
     "sourceChecked": "2026-09-23"
   },
   {
+    "id": "ind-tiger",
+    "country": "IND",
+    "topic": "wildlife",
+    "art": "mountains",
+    "title": {
+      "en": "Stripes like a fingerprint.",
+      "es": "Rayas como una huella."
+    },
+    "body": {
+      "en": "Bengal tigers live in the forests and wetlands of India. Every tiger has its own stripe pattern, so scientists can tell tigers apart by their stripes. They are powerful swimmers, too!",
+      "es": "Los tigres de Bengala viven en los bosques y humedales de la India. Cada tigre tiene su propio patrón de rayas, así que los científicos pueden reconocerlos por ellas. ¡También son grandes nadadores!"
+    },
+    "sourceName": "San Diego Zoo Wildlife Alliance",
+    "sourceUrl": "https://animals.sandiegozoo.org/animals/tiger",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-23"
+  },
+  {
+    "id": "ind-durga-puja",
+    "country": "IND",
+    "topic": "culture",
+    "art": "music",
+    "title": {
+      "en": "A festival of river clay.",
+      "es": "Una fiesta de barro de río."
+    },
+    "body": {
+      "en": "Each September or October, Kolkata celebrates Durga Puja for ten days. Artists shape images of the goddess Durga from clay taken from the Ganga River. When the festival ends, the images go back into the river.",
+      "es": "Cada septiembre u octubre, Calcuta celebra la Durga Puja durante diez días. Los artesanos moldean imágenes de la diosa Durga con barro del río Ganges. Cuando termina la fiesta, las imágenes regresan al río."
+    },
+    "sourceName": "UNESCO",
+    "sourceUrl": "https://ich.unesco.org/en/RL/durga-puja-in-kolkata-00703",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-23"
+  },
+  {
     "id": "chn-panda",
     "country": "CHN",
     "topic": "wildlife",
@@ -248,6 +320,42 @@
     },
     "sourceName": "UNESCO",
     "sourceUrl": "https://ich.unesco.org/en/RL/kimjang-making-and-sharing-kimchi-in-the-republic-of-korea-00881",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-23"
+  },
+  {
+    "id": "kor-hangul",
+    "country": "KOR",
+    "topic": "history",
+    "art": "mountains",
+    "title": {
+      "en": "An alphabet made by a king.",
+      "es": "Un alfabeto creado por un rey."
+    },
+    "body": {
+      "en": "King Sejong the Great finished creating a new alphabet for the Korean language in 1443 and announced it to the people in 1446. Today it is called Hangul, and it is still used to write Korean.",
+      "es": "El rey Sejong el Grande terminó de crear un nuevo alfabeto para el idioma coreano en 1443 y lo presentó al pueblo en 1446. Hoy se llama hangul y todavía se usa para escribir en coreano."
+    },
+    "sourceName": "UNESCO Memory of the World",
+    "sourceUrl": "https://www.unesco.org/en/memory-world/hunminjeongum-manuscript",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-23"
+  },
+  {
+    "id": "kor-taekkyeon",
+    "country": "KOR",
+    "topic": "culture",
+    "art": "music",
+    "title": {
+      "en": "A martial art that looks like a dance.",
+      "es": "Un arte marcial que parece baile."
+    },
+    "body": {
+      "en": "Taekkyeon is a traditional Korean martial art. Its moves are smooth, rhythmic, and circular, using both hands and feet. A true master can make an opponent step back without hurting them.",
+      "es": "El taekkyeon es un arte marcial tradicional de Corea. Sus movimientos son suaves, rítmicos y circulares, y usan tanto las manos como los pies. Un verdadero maestro puede hacer retroceder a su rival sin lastimarlo."
+    },
+    "sourceName": "UNESCO",
+    "sourceUrl": "https://ich.unesco.org/en/RL/taekkyeon-a-traditional-korean-martial-art-00452",
     "reviewStatus": "editorial-review-pending",
     "sourceChecked": "2026-09-23"
   },
