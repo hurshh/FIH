@@ -142,5 +142,149 @@
     "sourceUrl": "https://springfield.edu/about/birthplace-of-basketball",
     "reviewStatus": "editorial-review-pending",
     "sourceChecked": "2026-09-09"
+  },
+  {
+    "id": "jpn-instant-noodles",
+    "country": "JPN",
+    "topic": "inventions",
+    "art": "food",
+    "title": {
+      "en": "Noodles in a flash.",
+      "es": "Fideos en un instante."
+    },
+    "body": {
+      "en": "In 1958, Momofuku Ando invented instant noodles in Japan. His Chicken Ramen only needed hot water. In 1971, his company started selling Cup Noodles, the world’s first instant noodles in a cup!",
+      "es": "En 1958, Momofuku Ando inventó los fideos instantáneos en Japón. Su Chicken Ramen solo necesitaba agua caliente. En 1971, su empresa empezó a vender Cup Noodles, ¡los primeros fideos instantáneos en vaso del mundo!"
+    },
+    "sourceName": "Nissin Foods",
+    "sourceUrl": "https://www.nissin.com/en_jp/about/history/",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-23"
+  },
+  {
+    "id": "jpn-washoku",
+    "country": "JPN",
+    "topic": "food",
+    "art": "food",
+    "title": {
+      "en": "A feast for the New Year.",
+      "es": "Un banquete de Año Nuevo."
+    },
+    "body": {
+      "en": "Washoku is Japan’s traditional way of preparing and sharing food with respect for nature. For the New Year, families pound rice into sticky rice cakes and make special, beautifully arranged dishes.",
+      "es": "El washoku es la forma tradicional japonesa de preparar y compartir la comida con respeto por la naturaleza. Para el Año Nuevo, las familias machacan arroz para hacer pasteles de arroz y preparan platos especiales muy bien presentados."
+    },
+    "sourceName": "UNESCO",
+    "sourceUrl": "https://ich.unesco.org/en/RL/washoku-traditional-dietary-cultures-of-the-japanese-notably-for-the-celebration-of-new-year-00869",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-23"
+  },
+  {
+    "id": "ind-yoga",
+    "country": "IND",
+    "topic": "culture",
+    "art": "mountains",
+    "title": {
+      "en": "Stretch, breathe, and focus.",
+      "es": "Estírate, respira y concéntrate."
+    },
+    "body": {
+      "en": "Yoga is an ancient practice from India. It uses poses, meditation, and careful breathing to help the body and mind feel well. Young and old people practice it together.",
+      "es": "El yoga es una práctica antigua de la India. Usa posturas, meditación y respiración controlada para que el cuerpo y la mente se sientan bien. Lo practican juntas personas jóvenes y mayores."
+    },
+    "sourceName": "UNESCO",
+    "sourceUrl": "https://ich.unesco.org/en/RL/yoga-01163",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-23"
+  },
+  {
+    "id": "chn-panda",
+    "country": "CHN",
+    "topic": "wildlife",
+    "art": "mountains",
+    "title": {
+      "en": "Bamboo all day long.",
+      "es": "Bambú todo el día."
+    },
+    "body": {
+      "en": "Giant pandas live in misty mountain forests in southwestern China. They spend about 12 hours a day eating bamboo and can munch up to 15 kilograms of it!",
+      "es": "Los pandas gigantes viven en bosques de montaña con neblina en el suroeste de China. Pasan unas 12 horas al día comiendo bambú, ¡y pueden comer hasta 15 kilogramos!"
+    },
+    "sourceName": "San Diego Zoo Wildlife Alliance",
+    "sourceUrl": "https://animals.sandiegozoo.org/animals/giant-panda",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-23"
+  },
+  {
+    "id": "chn-peking-opera",
+    "country": "CHN",
+    "topic": "culture",
+    "art": "music",
+    "title": {
+      "en": "Faces that tell a story.",
+      "es": "Rostros que cuentan historias."
+    },
+    "body": {
+      "en": "Peking opera from China mixes singing, speaking, acting, and martial arts. Performers wear bold costumes, and the colors and patterns of their face makeup show what kind of character they are.",
+      "es": "La ópera de Pekín, de China, combina canto, recitación, actuación y artes marciales. Los artistas usan trajes llamativos, y los colores y diseños de su maquillaje muestran cómo es cada personaje."
+    },
+    "sourceName": "UNESCO",
+    "sourceUrl": "https://ich.unesco.org/en/RL/peking-opera-00418",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-23"
+  },
+  {
+    "id": "kor-kimjang",
+    "country": "KOR",
+    "topic": "food",
+    "art": "food",
+    "title": {
+      "en": "Kimchi for the whole winter.",
+      "es": "Kimchi para todo el invierno."
+    },
+    "body": {
+      "en": "In late autumn, families and neighbors in South Korea gather for kimjang. Together they make big batches of kimchi, a seasoned and fermented vegetable dish, and share it so everyone has enough for winter.",
+      "es": "A finales del otoño, familias y vecinos en Corea del Sur se reúnen para el kimjang. Juntos preparan mucho kimchi, un plato de verduras condimentadas y fermentadas, y lo comparten para que a todos les alcance durante el invierno."
+    },
+    "sourceName": "UNESCO",
+    "sourceUrl": "https://ich.unesco.org/en/RL/kimjang-making-and-sharing-kimchi-in-the-republic-of-korea-00881",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-23"
+  },
+  {
+    "id": "idn-gamelan",
+    "country": "IDN",
+    "topic": "culture",
+    "art": "music",
+    "title": {
+      "en": "An orchestra of gongs.",
+      "es": "Una orquesta de gongs."
+    },
+    "body": {
+      "en": "Gamelan is Indonesia’s traditional percussion orchestra. Its gongs, xylophones, drums, and flutes play together at ceremonies, theater shows, and festivals. Carvings of it appear on Borobudur, a temple more than 1,200 years old!",
+      "es": "El gamelán es la orquesta tradicional de percusión de Indonesia. Sus gongs, xilófonos, tambores y flautas suenan juntos en ceremonias, obras de teatro y festivales. ¡Aparece tallado en Borobudur, un templo de más de 1200 años!"
+    },
+    "sourceName": "UNESCO",
+    "sourceUrl": "https://ich.unesco.org/en/RL/gamelan-01607",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-23"
+  },
+  {
+    "id": "idn-komodo",
+    "country": "IDN",
+    "topic": "wildlife",
+    "art": "mountains",
+    "title": {
+      "en": "A real-life dragon.",
+      "es": "Un dragón de verdad."
+    },
+    "body": {
+      "en": "Komodo dragons live on just a few islands in Indonesia. Males can grow up to 3 meters long! They flick a long, yellow, forked tongue to sense food nearby.",
+      "es": "Los dragones de Komodo viven solo en unas pocas islas de Indonesia. ¡Los machos pueden medir hasta 3 metros de largo! Sacan su larga lengua amarilla y bífida para detectar comida cerca."
+    },
+    "sourceName": "San Diego Zoo Wildlife Alliance",
+    "sourceUrl": "https://animals.sandiegozoo.org/animals/komodo-dragon",
+    "reviewStatus": "editorial-review-pending",
+    "sourceChecked": "2026-09-23"
   }
 ]

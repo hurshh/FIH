@@ -116,6 +116,10 @@ void main() {
     expect(asia.countryAt(at(69, 30))?.id, 'PAK');
     // Taiwan stays neutral and non-interactive.
     expect(asia.countryAt(at(121, 23.7)), isNull);
+    expect(
+      data.facts.where((f) => asia.countries.any((c) => c.id == f.countryId)),
+      isNotEmpty,
+    );
   });
 
   testWidgets('map hit testing selects a country, including after zoom', (
