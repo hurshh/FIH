@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:americas_explorer/app.dart';
 import 'package:americas_explorer/models.dart';
+import 'package:americas_explorer/quiz.dart';
 import 'package:americas_explorer/strings.dart';
 import 'package:americas_explorer/widgets/atlas_map.dart';
 import 'package:flutter/material.dart';
@@ -186,6 +187,54 @@ void main() {
       '21st',
       '22nd',
     ]);
+  });
+
+  test('every country gets a sound two-option test', () {
+    for (final (i, country) in data.countries.indexed) {
+      final questions = buildQuiz(data, country, Random(i));
+      expect(
+        questions.length,
+        data.factsFor(country.id).length + 4,
+        reason: country.id,
+      );
+      for (final q in questions) {
+        expect(q.answer.en, isNot(q.wrong.en), reason: q.question.en);
+        expect(q.answer.es, isNot(q.wrong.es), reason: q.question.es);
+        expect(
+          [
+            q.question,
+            q.answer,
+            q.wrong,
+          ].every((t) => t.en.isNotEmpty && t.es.isNotEmpty),
+          isTrue,
+        );
+      }
+      final byName = {for (final c in data.countries) c.name.en: c.id};
+      for (final (question, measure) in [
+        ('Which country has more people?', (CountryProfile p) => p.population),
+        ('Which country is bigger?', (CountryProfile p) => p.area),
+      ]) {
+        final q = questions.firstWhere((q) => q.question.en == question);
+        expect(
+          measure(data.profiles[byName[q.answer.en]]!),
+          greaterThan(measure(data.profiles[byName[q.wrong.en]]!)),
+          reason: '${country.id}: $question',
+        );
+      }
+      final neighbours = data.profiles[country.id]!.neighbours
+          .map((n) => n.name.en)
+          .toSet();
+      if (neighbours.isNotEmpty) {
+        final q = questions.firstWhere(
+          (q) => q.question.en.startsWith('Which country shares'),
+        );
+        expect(neighbours, contains(q.answer.en));
+        expect(neighbours, isNot(contains(q.wrong.en)));
+      }
+    }
+    for (final fact in data.facts) {
+      expect(fact.quiz, isNotNull, reason: fact.id);
+    }
   });
 
   testWidgets('map hit testing selects a country, including after zoom', (
@@ -470,6 +519,67 @@ void main() {
     await expectLater(
       find.byKey(const Key('capture')),
       matchesGoldenFile('goldens/tablet-quick-facts.png'),
+    );
+  });
+
+  testWidgets('seeing every fact unlocks a test with feedback and a score', (
+    tester,
+  ) async {
+    await boot(tester);
+    await pick(tester, 'JPN', 'japan');
+    expect(
+      find.text('See every fact to unlock a test · 1 of 6'),
+      findsOneWidget,
+    );
+    expect(find.byKey(const Key('take-test')), findsNothing);
+    for (var seen = 1; seen < 6; seen++) {
+      expect(find.byKey(const Key('take-test')), findsNothing);
+      await tapKey(tester, 'another-fact');
+    }
+    await tapKey(tester, 'take-test');
+    var correct = 0;
+    for (var i = 1; i <= 6; i++) {
+      expect(find.text('Question $i of 6'), findsOneWidget);
+      await tapKey(tester, 'quiz-option-${i % 2}');
+      final feedback = tester.widget<Text>(
+        find.byKey(const Key('quiz-feedback')),
+      );
+      if (feedback.data == 'Correct!') {
+        correct++;
+      } else {
+        expect(feedback.data, startsWith('Not quite. The answer is: '));
+      }
+      // Answers are locked once chosen.
+      await tester.tap(find.byKey(Key('quiz-option-${(i + 1) % 2}')));
+      await tester.pump();
+      expect(
+        tester.widget<Text>(find.byKey(const Key('quiz-feedback'))).data,
+        feedback.data,
+      );
+      await tapKey(tester, 'quiz-next');
+    }
+    expect(find.text('$correct / 6'), findsOneWidget);
+    await tapKey(tester, 'quiz-retry');
+    expect(find.text('Question 1 of 6'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('language-es')));
+    await tester.pumpAndSettle();
+    expect(find.text('Pregunta 1 de 6'), findsOneWidget);
+    await tapKey(tester, 'quiz-close');
+    expect(find.byKey(const Key('take-test')), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('phone test visual', (tester) async {
+    await boot(tester, size: const Size(390, 844));
+    await pick(tester, 'KOR', 'korea');
+    for (var i = 0; i < 6; i++) {
+      await tapKey(tester, 'another-fact');
+    }
+    await tapKey(tester, 'take-test');
+    await tapKey(tester, 'quiz-option-0');
+    await expectLater(
+      find.byKey(const Key('capture')),
+      matchesGoldenFile('goldens/phone-test.png'),
     );
   });
 

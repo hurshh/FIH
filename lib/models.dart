@@ -35,6 +35,21 @@ class Country {
   final Path path;
 }
 
+/// A two-option test question; [answer] is the correct option.
+class QuizQuestion {
+  const QuizQuestion({
+    required this.question,
+    required this.answer,
+    required this.wrong,
+  });
+  factory QuizQuestion.fromJson(Map<String, dynamic> json) => QuizQuestion(
+    question: LocalText.fromJson(json['question']),
+    answer: LocalText.fromJson(json['answer']),
+    wrong: LocalText.fromJson(json['wrong']),
+  );
+  final LocalText question, answer, wrong;
+}
+
 /// Anything shown by "Another fact": a fun fact or a quick fact.
 abstract interface class DiscoveryCard {
   String get id;
@@ -63,6 +78,7 @@ class DiscoveryFact implements DiscoveryCard {
     required this.art,
     required this.sourceName,
     required this.sourceUrl,
+    this.quiz,
   });
   factory DiscoveryFact.fromJson(Map<String, dynamic> json) => DiscoveryFact(
     id: json['id'] as String,
@@ -73,11 +89,13 @@ class DiscoveryFact implements DiscoveryCard {
     art: json['art'] as String,
     sourceName: json['sourceName'] as String,
     sourceUrl: json['sourceUrl'] as String,
+    quiz: json['quiz'] == null ? null : QuizQuestion.fromJson(json['quiz']),
   );
   @override
   final String id, countryId;
   final String topic, art, sourceName, sourceUrl;
   final LocalText title, body;
+  final QuizQuestion? quiz;
 }
 
 /// Structured quick facts shown alongside the random fact collection.

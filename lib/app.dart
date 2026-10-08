@@ -8,6 +8,7 @@ import 'strings.dart';
 import 'theme.dart';
 import 'widgets/atlas_map.dart';
 import 'widgets/country_picker.dart';
+import 'quiz.dart';
 import 'widgets/discovery_art.dart';
 
 class AtlasApp extends StatefulWidget {
@@ -93,6 +94,20 @@ class _ExplorerHomeState extends State<ExplorerHome> {
   late String continent = widget.data.continents.first.id;
   Country? selected;
   DiscoveryCard? fact;
+  // Cards each country has shown this session; seeing all unlocks its test.
+  final seenFacts = <String, Set<String>>{};
+  bool testing = false;
+
+  void _recordSeen() {
+    final country = selected, card = fact;
+    if (country == null || card == null) return;
+    (seenFacts[country.id] ??= {}).add(card.id);
+  }
+
+  (int, int) _progress(Country country) => (
+    seenFacts[country.id]?.length ?? 0,
+    widget.data.cardsFor(country.id).length,
+  );
   final factScroll = ScrollController();
   Strings get s => Strings(widget.language);
 
@@ -109,15 +124,18 @@ class _ExplorerHomeState extends State<ExplorerHome> {
       fact =
           bag.current(country.id) ??
           bag.draw(country.id, widget.data.cardsFor(country.id));
+      testing = false;
+      _recordSeen();
     });
     if (factScroll.hasClients) factScroll.jumpTo(0);
   }
 
   void nextFact() {
     if (selected == null) return;
-    setState(
-      () => fact = bag.draw(selected!.id, widget.data.cardsFor(selected!.id)),
-    );
+    setState(() {
+      fact = bag.draw(selected!.id, widget.data.cardsFor(selected!.id));
+      _recordSeen();
+    });
     if (factScroll.hasClients) factScroll.jumpTo(0);
   }
 
@@ -453,7 +471,18 @@ class _ExplorerHomeState extends State<ExplorerHome> {
     child: SingleChildScrollView(
       controller: factScroll,
       padding: const EdgeInsets.all(22),
-      child: selected == null ? _welcome() : _factContent(),
+      child: selected == null
+          ? _welcome()
+          : testing
+          ? QuizCard(
+              key: ValueKey('quiz-${selected!.id}'),
+              country: selected!,
+              language: widget.language,
+              random: random,
+              build: () => buildQuiz(widget.data, selected!, random),
+              onClose: () => setState(() => testing = false),
+            )
+          : _factContent(),
     ),
   );
 
@@ -536,6 +565,8 @@ class _ExplorerHomeState extends State<ExplorerHome> {
           s.region(country.region),
           style: const TextStyle(color: muted, fontSize: 13),
         ),
+        const SizedBox(height: 14),
+        _testPrompt(country),
         const SizedBox(height: 19),
         if (current is QuickFact) ...[
           ..._quickFact(country, current.kind),
@@ -666,6 +697,37 @@ class _ExplorerHomeState extends State<ExplorerHome> {
           ),
           child: Text(s.collectionEnd, style: const TextStyle(fontSize: 14)),
         );
+
+  Widget _testPrompt(Country country) {
+    final (done, total) = _progress(country);
+    if (done < total) {
+      return Row(
+        key: const Key('test-locked'),
+        children: [
+          const Icon(Icons.lock_outline_rounded, size: 16, color: muted),
+          const SizedBox(width: 7),
+          Expanded(
+            child: Text(
+              s.unlockProgress(done, total),
+              style: const TextStyle(color: muted, fontSize: 13),
+            ),
+          ),
+        ],
+      );
+    }
+    return SizedBox(
+      width: double.infinity,
+      child: FilledButton.icon(
+        key: const Key('take-test'),
+        onPressed: () {
+          setState(() => testing = true);
+          if (factScroll.hasClients) factScroll.jumpTo(0);
+        },
+        icon: const Icon(Icons.quiz_outlined, size: 20),
+        label: Text(s.takeTest),
+      ),
+    );
+  }
 
   List<Widget> _quickFact(Country country, QuickKind kind) {
     final profile = widget.data.profiles[country.id];

@@ -15,7 +15,21 @@
     "sourceName": "San Diego Zoo Wildlife Alliance",
     "sourceUrl": "https://animals.sandiegozoo.org/animals/toucan",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-09"
+    "sourceChecked": "2026-09-09",
+    "quiz": {
+      "question": {
+        "en": "What makes a toucan’s huge beak so light?",
+        "es": "¿Qué hace que el enorme pico del tucán sea tan ligero?"
+      },
+      "answer": {
+        "en": "A spongy structure inside",
+        "es": "Una estructura esponjosa por dentro"
+      },
+      "wrong": {
+        "en": "It is made of feathers",
+        "es": "Está hecho de plumas"
+      }
+    }
   },
   {
     "id": "bra-capoeira",
@@ -33,7 +47,21 @@
     "sourceName": "UNESCO",
     "sourceUrl": "https://ich.unesco.org/en/RL/capoeira-circle-00892",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-09"
+    "sourceChecked": "2026-09-09",
+    "quiz": {
+      "question": {
+        "en": "What does capoeira combine?",
+        "es": "¿Qué combina la capoeira?"
+      },
+      "answer": {
+        "en": "Fighting moves, dance, and music",
+        "es": "Movimientos de lucha, danza y música"
+      },
+      "wrong": {
+        "en": "Swimming and running",
+        "es": "Natación y carrera"
+      }
+    }
   },
   {
     "id": "mex-axolotl",
@@ -51,7 +79,21 @@
     "sourceName": "San Diego Zoo Wildlife Alliance",
     "sourceUrl": "https://animals.sandiegozoo.org/animals/axolotl",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-09"
+    "sourceChecked": "2026-09-09",
+    "quiz": {
+      "question": {
+        "en": "What does the axolotl keep as an adult?",
+        "es": "¿Qué conserva el ajolote de adulto?"
+      },
+      "answer": {
+        "en": "Feathery outside gills",
+        "es": "Branquias plumosas por fuera"
+      },
+      "wrong": {
+        "en": "A hard shell",
+        "es": "Un caparazón duro"
+      }
+    }
   },
   {
     "id": "mex-mariachi",
@@ -69,7 +111,21 @@
     "sourceName": "UNESCO",
     "sourceUrl": "https://ich.unesco.org/doc/src/17331-EN.pdf",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-09"
+    "sourceChecked": "2026-09-09",
+    "quiz": {
+      "question": {
+        "en": "Which instruments do many mariachi groups play?",
+        "es": "¿Qué instrumentos tocan muchos grupos de mariachi?"
+      },
+      "answer": {
+        "en": "Violins, trumpets, and guitars",
+        "es": "Violines, trompetas y guitarras"
+      },
+      "wrong": {
+        "en": "Pianos and harps only",
+        "es": "Solo pianos y arpas"
+      }
+    }
   },
   {
     "id": "mex-teotihuacan",
@@ -87,7 +143,21 @@
     "sourceName": "UNESCO",
     "sourceUrl": "https://whc.unesco.org/en/list/414/",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-09"
+    "sourceChecked": "2026-09-09",
+    "quiz": {
+      "question": {
+        "en": "Teotihuacan’s pyramids are named for what?",
+        "es": "¿En honor a qué se nombran las pirámides de Teotihuacan?"
+      },
+      "answer": {
+        "en": "The Sun and the Moon",
+        "es": "El Sol y la Luna"
+      },
+      "wrong": {
+        "en": "Two famous kings",
+        "es": "Dos reyes famosos"
+      }
+    }
   },
   {
     "id": "per-machu",
@@ -105,7 +175,21 @@
     "sourceName": "UNESCO",
     "sourceUrl": "https://whc.unesco.org/en/list/274/",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-09"
+    "sourceChecked": "2026-09-09",
+    "quiz": {
+      "question": {
+        "en": "Who built Machu Picchu?",
+        "es": "¿Quiénes construyeron Machu Picchu?"
+      },
+      "answer": {
+        "en": "The Inca",
+        "es": "Los incas"
+      },
+      "wrong": {
+        "en": "The Romans",
+        "es": "Los romanos"
+      }
+    }
   },
   {
     "id": "per-potatoes",
@@ -123,7 +207,21 @@
     "sourceName": "International Potato Center",
     "sourceUrl": "https://cipotato.org/potato/native-potato-varieties/",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-09"
+    "sourceChecked": "2026-09-09",
+    "quiz": {
+      "question": {
+        "en": "Where were potatoes first domesticated?",
+        "es": "¿Dónde se domesticaron las papas por primera vez?"
+      },
+      "answer": {
+        "en": "In the Andes",
+        "es": "En los Andes"
+      },
+      "wrong": {
+        "en": "In the Sahara",
+        "es": "En el Sahara"
+      }
+    }
   },
   {
     "id": "usa-basketball",
@@ -141,7 +239,21 @@
     "sourceName": "Springfield College",
     "sourceUrl": "https://springfield.edu/about/birthplace-of-basketball",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-09"
+    "sourceChecked": "2026-09-09",
+    "quiz": {
+      "question": {
+        "en": "What were the first basketball goals?",
+        "es": "¿Qué fueron las primeras canastas de baloncesto?"
+      },
+      "answer": {
+        "en": "Peach baskets",
+        "es": "Canastas de duraznos"
+      },
+      "wrong": {
+        "en": "Buckets of water",
+        "es": "Cubetas de agua"
+      }
+    }
   },
   {
     "id": "usa-yellowstone",
@@ -159,7 +271,21 @@
     "sourceName": "U.S. National Park Service",
     "sourceUrl": "https://www.nps.gov/yell/learn/historyculture/index.htm",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-23"
+    "sourceChecked": "2026-09-23",
+    "quiz": {
+      "question": {
+        "en": "What was special about Yellowstone in 1872?",
+        "es": "¿Qué tuvo de especial Yellowstone en 1872?"
+      },
+      "answer": {
+        "en": "It became the world’s first national park",
+        "es": "Fue el primer parque nacional del mundo"
+      },
+      "wrong": {
+        "en": "It became the first city in America",
+        "es": "Fue la primera ciudad de América"
+      }
+    }
   },
   {
     "id": "usa-first-flight",
@@ -177,7 +303,21 @@
     "sourceName": "Smithsonian National Air and Space Museum",
     "sourceUrl": "https://airandspace.si.edu/collection-objects/1903-wright-flyer/nasm_A19610048000",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-23"
+    "sourceChecked": "2026-09-23",
+    "quiz": {
+      "question": {
+        "en": "How long was Orville Wright’s first flight in 1903?",
+        "es": "¿Cuánto duró el primer vuelo de Orville Wright en 1903?"
+      },
+      "answer": {
+        "en": "12 seconds",
+        "es": "12 segundos"
+      },
+      "wrong": {
+        "en": "12 hours",
+        "es": "12 horas"
+      }
+    }
   },
   {
     "id": "jpn-instant-noodles",
@@ -195,7 +335,21 @@
     "sourceName": "Nissin Foods",
     "sourceUrl": "https://www.nissin.com/en_jp/about/history/",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-23"
+    "sourceChecked": "2026-09-23",
+    "quiz": {
+      "question": {
+        "en": "What did Chicken Ramen need to be ready?",
+        "es": "¿Qué necesitaba el Chicken Ramen para estar listo?"
+      },
+      "answer": {
+        "en": "Only hot water",
+        "es": "Solo agua caliente"
+      },
+      "wrong": {
+        "en": "A big oven",
+        "es": "Un horno grande"
+      }
+    }
   },
   {
     "id": "jpn-washoku",
@@ -213,7 +367,21 @@
     "sourceName": "UNESCO",
     "sourceUrl": "https://ich.unesco.org/en/RL/washoku-traditional-dietary-cultures-of-the-japanese-notably-for-the-celebration-of-new-year-00869",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-23"
+    "sourceChecked": "2026-09-23",
+    "quiz": {
+      "question": {
+        "en": "What do families make from pounded rice at New Year?",
+        "es": "¿Qué hacen las familias con arroz machacado en Año Nuevo?"
+      },
+      "answer": {
+        "en": "Sticky rice cakes",
+        "es": "Pasteles de arroz"
+      },
+      "wrong": {
+        "en": "Rice noodles",
+        "es": "Fideos de arroz"
+      }
+    }
   },
   {
     "id": "ind-yoga",
@@ -231,7 +399,21 @@
     "sourceName": "UNESCO",
     "sourceUrl": "https://ich.unesco.org/en/RL/yoga-01163",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-23"
+    "sourceChecked": "2026-09-23",
+    "quiz": {
+      "question": {
+        "en": "What does yoga use to help the body and mind?",
+        "es": "¿Qué usa el yoga para ayudar al cuerpo y la mente?"
+      },
+      "answer": {
+        "en": "Poses, meditation, and careful breathing",
+        "es": "Posturas, meditación y respiración"
+      },
+      "wrong": {
+        "en": "Running races",
+        "es": "Carreras de velocidad"
+      }
+    }
   },
   {
     "id": "ind-tiger",
@@ -249,7 +431,21 @@
     "sourceName": "San Diego Zoo Wildlife Alliance",
     "sourceUrl": "https://animals.sandiegozoo.org/animals/tiger",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-23"
+    "sourceChecked": "2026-09-23",
+    "quiz": {
+      "question": {
+        "en": "How can scientists tell Bengal tigers apart?",
+        "es": "¿Cómo distinguen los científicos a los tigres de Bengala?"
+      },
+      "answer": {
+        "en": "By their stripe patterns",
+        "es": "Por sus patrones de rayas"
+      },
+      "wrong": {
+        "en": "By the color of their eyes",
+        "es": "Por el color de sus ojos"
+      }
+    }
   },
   {
     "id": "ind-durga-puja",
@@ -267,7 +463,21 @@
     "sourceName": "UNESCO",
     "sourceUrl": "https://ich.unesco.org/en/RL/durga-puja-in-kolkata-00703",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-23"
+    "sourceChecked": "2026-09-23",
+    "quiz": {
+      "question": {
+        "en": "What are Durga Puja images made from?",
+        "es": "¿De qué se hacen las imágenes de la Durga Puja?"
+      },
+      "answer": {
+        "en": "Clay from the Ganga River",
+        "es": "Barro del río Ganges"
+      },
+      "wrong": {
+        "en": "Ice from the mountains",
+        "es": "Hielo de las montañas"
+      }
+    }
   },
   {
     "id": "chn-panda",
@@ -285,7 +495,21 @@
     "sourceName": "San Diego Zoo Wildlife Alliance",
     "sourceUrl": "https://animals.sandiegozoo.org/animals/giant-panda",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-23"
+    "sourceChecked": "2026-09-23",
+    "quiz": {
+      "question": {
+        "en": "About how long do giant pandas spend eating bamboo each day?",
+        "es": "¿Cuánto tiempo pasan los pandas gigantes comiendo bambú cada día?"
+      },
+      "answer": {
+        "en": "About 12 hours",
+        "es": "Unas 12 horas"
+      },
+      "wrong": {
+        "en": "About 1 hour",
+        "es": "Alrededor de 1 hora"
+      }
+    }
   },
   {
     "id": "chn-peking-opera",
@@ -303,7 +527,21 @@
     "sourceName": "UNESCO",
     "sourceUrl": "https://ich.unesco.org/en/RL/peking-opera-00418",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-23"
+    "sourceChecked": "2026-09-23",
+    "quiz": {
+      "question": {
+        "en": "In Peking opera, what shows what kind of character a performer is?",
+        "es": "En la ópera de Pekín, ¿qué muestra cómo es cada personaje?"
+      },
+      "answer": {
+        "en": "Face makeup colors and patterns",
+        "es": "Los colores y diseños del maquillaje"
+      },
+      "wrong": {
+        "en": "The size of their shoes",
+        "es": "El tamaño de sus zapatos"
+      }
+    }
   },
   {
     "id": "kor-kimjang",
@@ -321,7 +559,21 @@
     "sourceName": "UNESCO",
     "sourceUrl": "https://ich.unesco.org/en/RL/kimjang-making-and-sharing-kimchi-in-the-republic-of-korea-00881",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-23"
+    "sourceChecked": "2026-09-23",
+    "quiz": {
+      "question": {
+        "en": "When do families in South Korea gather for kimjang?",
+        "es": "¿Cuándo se reúnen las familias en Corea del Sur para el kimjang?"
+      },
+      "answer": {
+        "en": "In late autumn",
+        "es": "A finales del otoño"
+      },
+      "wrong": {
+        "en": "In early summer",
+        "es": "A principios del verano"
+      }
+    }
   },
   {
     "id": "kor-hangul",
@@ -339,7 +591,21 @@
     "sourceName": "UNESCO Memory of the World",
     "sourceUrl": "https://www.unesco.org/en/memory-world/hunminjeongum-manuscript",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-23"
+    "sourceChecked": "2026-09-23",
+    "quiz": {
+      "question": {
+        "en": "Who created the Hangul alphabet?",
+        "es": "¿Quién creó el alfabeto hangul?"
+      },
+      "answer": {
+        "en": "King Sejong the Great",
+        "es": "El rey Sejong el Grande"
+      },
+      "wrong": {
+        "en": "A famous painter",
+        "es": "Un pintor famoso"
+      }
+    }
   },
   {
     "id": "kor-taekkyeon",
@@ -357,7 +623,21 @@
     "sourceName": "UNESCO",
     "sourceUrl": "https://ich.unesco.org/en/RL/taekkyeon-a-traditional-korean-martial-art-00452",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-23"
+    "sourceChecked": "2026-09-23",
+    "quiz": {
+      "question": {
+        "en": "How do taekkyeon moves look?",
+        "es": "¿Cómo son los movimientos del taekkyeon?"
+      },
+      "answer": {
+        "en": "Smooth, rhythmic, and circular",
+        "es": "Suaves, rítmicos y circulares"
+      },
+      "wrong": {
+        "en": "Stiff and in straight lines",
+        "es": "Rígidos y en línea recta"
+      }
+    }
   },
   {
     "id": "idn-gamelan",
@@ -375,7 +655,21 @@
     "sourceName": "UNESCO",
     "sourceUrl": "https://ich.unesco.org/en/RL/gamelan-01607",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-23"
+    "sourceChecked": "2026-09-23",
+    "quiz": {
+      "question": {
+        "en": "What kind of orchestra is gamelan?",
+        "es": "¿Qué tipo de orquesta es el gamelán?"
+      },
+      "answer": {
+        "en": "A percussion orchestra",
+        "es": "Una orquesta de percusión"
+      },
+      "wrong": {
+        "en": "An orchestra of only violins",
+        "es": "Una orquesta de solo violines"
+      }
+    }
   },
   {
     "id": "idn-komodo",
@@ -393,6 +687,20 @@
     "sourceName": "San Diego Zoo Wildlife Alliance",
     "sourceUrl": "https://animals.sandiegozoo.org/animals/komodo-dragon",
     "reviewStatus": "editorial-review-pending",
-    "sourceChecked": "2026-09-23"
+    "sourceChecked": "2026-09-23",
+    "quiz": {
+      "question": {
+        "en": "What do Komodo dragons use to sense food?",
+        "es": "¿Qué usan los dragones de Komodo para detectar comida?"
+      },
+      "answer": {
+        "en": "A long, forked tongue",
+        "es": "Una lengua larga y bífida"
+      },
+      "wrong": {
+        "en": "Their long tail",
+        "es": "Su larga cola"
+      }
+    }
   }
 ]

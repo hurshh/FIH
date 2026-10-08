@@ -178,6 +178,56 @@ class Strings {
   String get worldBank => t('World Bank', 'Banco Mundial');
   String get naturalEarth => 'Natural Earth';
 
+  String get takeTest => t('Take the test', 'Haz la prueba');
+  String unlockProgress(int done, int total) => t(
+    'See every fact to unlock a test · $done of $total',
+    'Descubre todos los datos para desbloquear una prueba · $done de $total',
+  );
+  String testEyebrow(String country) =>
+      t('TEST · ', 'PRUEBA · ') + country.toUpperCase();
+  String questionOf(int n, int total) =>
+      t('Question $n of $total', 'Pregunta $n de $total');
+  String get correct => t('Correct!', '¡Correcto!');
+  String notQuite(String answer) =>
+      t('Not quite. The answer is: $answer', 'Casi. La respuesta es: $answer');
+  String get nextQuestion => t('Next question', 'Siguiente pregunta');
+  String get seeScore => t('See my score', 'Ver mi resultado');
+  String scoreLine(int score, int total) =>
+      t('$score out of $total correct', '$score de $total correctas');
+  String scoreMessage(String country, int score, int total) => score == total
+      ? t(
+          'Perfect! You’re a $country expert!',
+          '¡Perfecto! ¡Sabes mucho de $country!',
+        )
+      : score * 2 >= total
+      ? t(
+          'Great job! You know a lot about $country.',
+          '¡Muy bien! Sabes bastante de $country.',
+        )
+      : t(
+          'Nice try! Explore the facts again and have another go.',
+          '¡Buen intento! Repasa los datos e inténtalo otra vez.',
+        );
+  String get tryAgain => t('Try again', 'Intentar otra vez');
+  String get backToFacts => t('Back to the facts', 'Volver a los datos');
+  String quizCapital(String country) =>
+      t('What is the capital of $country?', '¿Cuál es la capital de $country?');
+  String get quizMorePeople =>
+      t('Which country has more people?', '¿Qué país tiene más habitantes?');
+  String get quizBigger =>
+      t('Which country is bigger?', '¿Qué país es más grande?');
+  String quizNeighbour(String country) => t(
+    'Which country shares a land border with $country?',
+    '¿Qué país tiene frontera terrestre con $country?',
+  );
+  String quizAnyNeighbours(String country) => t(
+    'Does $country share a land border with another country?',
+    '¿$country tiene frontera terrestre con otro país?',
+  );
+  String get onlySea =>
+      t('No, it’s surrounded by sea', 'No, está rodeado de mar');
+  String get yesItDoes => t('Yes, it does', 'Sí, la tiene');
+
   String topic(String topic) => switch (topic) {
     'wildlife' => t('Wildlife', 'Vida silvestre'),
     'culture' => t('Culture', 'Cultura'),
