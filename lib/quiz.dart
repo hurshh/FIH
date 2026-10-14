@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'models.dart';
+import 'narrator.dart';
+import 'speech_script.dart';
 import 'strings.dart';
 import 'theme.dart';
 
@@ -51,14 +53,6 @@ List<QuizQuestion> buildQuiz(AtlasData data, Country country, Random random) {
     );
   }
 
-  LocalText capitalsOf(String id) {
-    final capitals = profiles[id]!.capitals;
-    return LocalText(
-      capitals.map((c) => c.en).join(' & '),
-      capitals.map((c) => c.es).join(' y '),
-    );
-  }
-
   final neighbourIds = profile.neighbours.map((n) => n.id).toSet();
   final nearbyIds = profile.neighbours
       .where((n) => byId.containsKey(n.id))
@@ -74,8 +68,8 @@ List<QuizQuestion> buildQuiz(AtlasData data, Country country, Random random) {
       question: _both(
         (s) => s.quizCapital(country.name.inLanguage(s.language)),
       ),
-      answer: capitalsOf(country.id),
-      wrong: capitalsOf(otherCapital),
+      answer: capitalsOf(profile),
+      wrong: capitalsOf(profiles[otherCapital]!),
     ),
     compare(_both((s) => s.quizMorePeople), (p) => p.population),
     compare(_both((s) => s.quizBigger), (p) => p.area),
@@ -109,12 +103,14 @@ class QuizCard extends StatefulWidget {
     required this.build,
     required this.random,
     required this.onClose,
+    required this.narrator,
   });
   final Country country;
   final AppLanguage language;
   final List<QuizQuestion> Function() build;
   final Random random;
   final VoidCallback onClose;
+  final Narrator narrator;
   @override
   State<QuizCard> createState() => _QuizCardState();
 }
@@ -123,6 +119,8 @@ class _QuizCardState extends State<QuizCard> {
   late List<QuizQuestion> questions;
   late List<bool> answerFirst;
   int index = 0, score = 0;
+  // Counts retries so every attempt's narration is new.
+  int attempt = 0;
   int? picked;
 
   @override
@@ -135,6 +133,7 @@ class _QuizCardState extends State<QuizCard> {
     questions = widget.build();
     answerFirst = [for (final _ in questions) widget.random.nextBool()];
     index = score = 0;
+    attempt++;
     picked = null;
   }
 
@@ -188,13 +187,27 @@ class _QuizCardState extends State<QuizCard> {
         ? [q.answer, q.wrong]
         : [q.wrong, q.answer];
     final last = index == questions.length - 1;
+    final feedback = picked == correctOption
+        ? s.correct
+        : s.notQuite(q.answer.inLanguage(widget.language));
     return [
-      Text(
-        s.questionOf(index + 1, questions.length),
-        key: const Key('quiz-progress'),
-        style: const TextStyle(color: muted, fontWeight: FontWeight.w800),
+      Row(
+        children: [
+          Expanded(
+            child: Text(
+              s.questionOf(index + 1, questions.length),
+              key: const Key('quiz-progress'),
+              style: const TextStyle(color: muted, fontWeight: FontWeight.w800),
+            ),
+          ),
+          _listen(
+            'quiz-listen',
+            'question-$index',
+            questionSpeech(q, answerFirst[index], s),
+          ),
+        ],
       ),
-      const SizedBox(height: 10),
+      const SizedBox(height: 6),
       ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: LinearProgressIndicator(
@@ -217,19 +230,30 @@ class _QuizCardState extends State<QuizCard> {
       ],
       if (picked != null) ...[
         const SizedBox(height: 6),
-        Semantics(
-          liveRegion: true,
-          child: Text(
-            picked == correctOption
-                ? s.correct
-                : s.notQuite(q.answer.inLanguage(widget.language)),
-            key: const Key('quiz-feedback'),
-            style: TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.w800,
-              color: picked == correctOption ? forest : const Color(0xFFB4532F),
+        Row(
+          children: [
+            Expanded(
+              child: Semantics(
+                liveRegion: true,
+                child: Text(
+                  feedback,
+                  key: const Key('quiz-feedback'),
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w800,
+                    color: picked == correctOption
+                        ? forest
+                        : const Color(0xFFB4532F),
+                  ),
+                ),
+              ),
             ),
-          ),
+            _listen(
+              'quiz-feedback-listen',
+              'answer-$index',
+              feedbackSpeech(picked == correctOption, q.answer, s),
+            ),
+          ],
         ),
         const SizedBox(height: 18),
         SizedBox(
@@ -250,6 +274,14 @@ class _QuizCardState extends State<QuizCard> {
       ],
     ];
   }
+
+  Widget _listen(String key, String part, List<String> parts) => ListenButton(
+    key: Key(key),
+    id: 'quiz-${widget.country.id}-$attempt-$part-${widget.language.name}',
+    parts: parts,
+    language: widget.language,
+    narrator: widget.narrator,
+  );
 
   Widget _option(int i, String label, int correctOption) {
     final answered = picked != null;
@@ -332,9 +364,21 @@ class _QuizCardState extends State<QuizCard> {
       ),
     ),
     const SizedBox(height: 20),
-    Text(
-      s.scoreMessage(name, score, questions.length),
-      style: const TextStyle(fontSize: 17, height: 1.6),
+    Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Text(
+            s.scoreMessage(name, score, questions.length),
+            style: const TextStyle(fontSize: 17, height: 1.6),
+          ),
+        ),
+        _listen(
+          'quiz-score-listen',
+          'score',
+          scoreSpeech(name, score, questions.length, s),
+        ),
+      ],
     ),
     const SizedBox(height: 22),
     SizedBox(

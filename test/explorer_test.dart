@@ -1,20 +1,49 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:americas_explorer/app.dart';
 import 'package:americas_explorer/models.dart';
+import 'package:americas_explorer/narrator.dart';
 import 'package:americas_explorer/quiz.dart';
+import 'package:americas_explorer/speech_script.dart';
 import 'package:americas_explorer/strings.dart';
 import 'package:americas_explorer/widgets/atlas_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+/// Records what would be spoken. Each part "plays" until [finish] or [stop].
+class FakeSpeaker implements Speaker {
+  final spoken = <(String, AppLanguage, String?)>[];
+  int stops = 0;
+  Completer<void>? _part;
+  @override
+  Future<void> say(String text, AppLanguage language, {String? clip}) {
+    spoken.add((text, language, clip));
+    return (_part = Completer<void>()).future;
+  }
+
+  @override
+  Future<void> stop() async {
+    stops++;
+    finish();
+  }
+
+  void finish() {
+    final part = _part;
+    _part = null;
+    if (part != null && !part.isCompleted) part.complete();
+  }
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   WidgetController.hitTestWarningShouldBeFatal = true;
   late AtlasData data;
+  late Set<String> clips;
   setUpAll(() async {
     data = await AtlasData.load();
+    clips = await loadClipIndex();
     await (FontLoader(
       'MaterialIcons',
     )..addFont(rootBundle.load('fonts/MaterialIcons-Regular.otf'))).load();
@@ -32,6 +61,7 @@ void main() {
     double textScale = 1,
     Future<void> Function(AppLanguage)? persist,
     AtlasData? atlas,
+    Speaker? speaker,
   }) async {
     tester.view.devicePixelRatio = 1;
     tester.view.physicalSize = size;
@@ -47,6 +77,8 @@ void main() {
           initialLanguage: language,
           random: Random(7),
           persistLanguage: persist,
+          speaker: speaker ?? FakeSpeaker(),
+          clips: Future.value(clips),
         ),
       ),
     );
@@ -581,6 +613,154 @@ void main() {
       find.byKey(const Key('capture')),
       matchesGoldenFile('goldens/phone-test.png'),
     );
+  });
+
+  test('speech reads numbers and symbols naturally', () {
+    expect(
+      forSpeech(
+        'Japón ocupa unos 378 000 kilómetros cuadrados.',
+        AppLanguage.es,
+      ),
+      'Japón ocupa unos 378000 kilómetros cuadrados.',
+    );
+    expect(
+      forSpeech('About 530,000 people · World Bank', AppLanguage.en),
+      'About 530000 people, World Bank',
+    );
+    expect(forSpeech('La Paz & Sucre', AppLanguage.en), 'La Paz and Sucre');
+    expect(
+      forSpeech('1.46 billion in 2025', AppLanguage.en),
+      '1.46 billion in 2025',
+    );
+    expect(
+      speechKey(AppLanguage.en, 'Mexico'),
+      speechKey(AppLanguage.en, 'Mexico'),
+    );
+    expect(
+      speechKey(AppLanguage.en, 'Mexico'),
+      isNot(speechKey(AppLanguage.es, 'Mexico')),
+    );
+    expect(speechKey(AppLanguage.en, 'Mexico'), matches(r'^en_[0-9a-f]{16}$'));
+  });
+
+  test('everything the app can say is in the speech list', () {
+    for (final language in AppLanguage.values) {
+      final s = Strings(language);
+      final all = allSpeech(data, s);
+      void check(List<String> parts, String where) {
+        for (final part in parts) {
+          expect(all, contains(part), reason: '$where: $part');
+        }
+      }
+
+      check(welcomeSpeech(s), 'welcome');
+      for (final (i, country) in data.countries.indexed) {
+        for (final card in data.cardsFor(country.id)) {
+          check(cardSpeech(data, country, card, s), card.id);
+        }
+        final questions = buildQuiz(data, country, Random(i));
+        for (final q in questions) {
+          for (final answerFirst in [true, false]) {
+            check(questionSpeech(q, answerFirst, s), q.question.en);
+          }
+          for (final correct in [true, false]) {
+            check(feedbackSpeech(correct, q.answer, s), q.answer.en);
+          }
+        }
+        final name = country.name.inLanguage(language);
+        for (var score = 0; score <= questions.length; score++) {
+          check(scoreSpeech(name, score, questions.length, s), country.id);
+        }
+      }
+    }
+  });
+
+  test('every speech part has a bundled recording', () {
+    final missing = [
+      for (final language in AppLanguage.values)
+        for (final part in allSpeech(data, Strings(language)))
+          if (!clips.contains(speechKey(language, part))) part,
+    ];
+    // Regenerate with tool/generate_speech.sh after changing any text.
+    expect(missing, isEmpty);
+  });
+
+  testWidgets('listen plays recorded parts in the chosen language', (
+    tester,
+  ) async {
+    final speaker = FakeSpeaker();
+    await boot(tester, speaker: speaker);
+    await tapKey(tester, 'listen-welcome');
+    expect(speaker.spoken.last.$1, 'Pick a place.');
+    await pick(tester, 'MEX', 'mexico');
+    await tapKey(tester, 'listen-card');
+    expect(speaker.spoken.last, (
+      'Mexico',
+      AppLanguage.en,
+      'audio/${speechKey(AppLanguage.en, 'Mexico')}.m4a',
+    ));
+    expect(
+      find.descendant(
+        of: find.byKey(const Key('listen-card')),
+        matching: find.text('Stop'),
+      ),
+      findsOneWidget,
+    );
+    // Parts play one after another.
+    final title = tester
+        .widgetList<Text>(find.byType(Text))
+        .firstWhere(
+          (t) =>
+              t.key is ValueKey<String> &&
+              (t.key! as ValueKey<String>).value.startsWith('title-'),
+        )
+        .data!;
+    speaker.finish();
+    await tester.pumpAndSettle();
+    expect(speaker.spoken.last.$1, title);
+    await tapKey(tester, 'listen-card');
+    expect(find.text('Stop'), findsNothing);
+    await tester.tap(find.byKey(const Key('language-es')));
+    await tester.pumpAndSettle();
+    await tapKey(tester, 'listen-card');
+    expect(speaker.spoken.last.$1, 'México');
+    expect(speaker.spoken.last.$2, AppLanguage.es);
+    for (var i = 0; i < 3; i++) {
+      speaker.finish();
+      await tester.pumpAndSettle();
+    }
+    expect(find.text('Detener'), findsNothing);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('read aloud speaks new cards, questions, and feedback', (
+    tester,
+  ) async {
+    final speaker = FakeSpeaker();
+    await boot(tester, speaker: speaker);
+    await tapKey(tester, 'read-aloud');
+    await pick(tester, 'KOR', 'korea');
+    expect(speaker.spoken.last.$1, 'South Korea');
+    for (var i = 0; i < 6; i++) {
+      final before = speaker.spoken.length;
+      await tapKey(tester, 'another-fact');
+      expect(speaker.spoken.length, before + 1);
+    }
+    await tapKey(tester, 'take-test');
+    final question = tester
+        .widget<Text>(find.byKey(const Key('quiz-question')))
+        .data!;
+    expect(speaker.spoken.last.$1, question);
+    await tapKey(tester, 'quiz-option-0');
+    final feedback = tester
+        .widget<Text>(find.byKey(const Key('quiz-feedback')))
+        .data!;
+    expect(feedback, startsWith(speaker.spoken.last.$1));
+    await tapKey(tester, 'read-aloud');
+    final count = speaker.spoken.length;
+    await tapKey(tester, 'quiz-next');
+    expect(speaker.spoken.length, count);
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('phone Spanish fact visual', (tester) async {

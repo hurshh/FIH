@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'models.dart';
+import 'narrator.dart';
 import 'strings.dart';
 import 'theme.dart';
 import 'widgets/atlas_map.dart';
 import 'widgets/country_picker.dart';
 import 'quiz.dart';
+import 'speech_script.dart';
 import 'widgets/discovery_art.dart';
 
 class AtlasApp extends StatefulWidget {
@@ -18,11 +20,15 @@ class AtlasApp extends StatefulWidget {
     this.initialLanguage = AppLanguage.en,
     this.persistLanguage,
     this.random,
+    this.speaker,
+    this.clips,
   });
   final AtlasData data;
   final AppLanguage initialLanguage;
   final Future<void> Function(AppLanguage)? persistLanguage;
   final Random? random;
+  final Speaker? speaker;
+  final Future<Set<String>>? clips;
   @override
   State<AtlasApp> createState() => _AtlasAppState();
 }
@@ -31,6 +37,16 @@ class _AtlasAppState extends State<AtlasApp> {
   late AppLanguage language = widget.initialLanguage;
   Future<void> saves = Future.value();
   final messenger = GlobalKey<ScaffoldMessengerState>();
+  late final narrator = Narrator(
+    widget.speaker ?? DeviceSpeaker(),
+    clips: widget.clips,
+  );
+
+  @override
+  void dispose() {
+    narrator.dispose();
+    super.dispose();
+  }
 
   void changeLanguage(AppLanguage value) {
     if (value == language) return;
@@ -67,6 +83,7 @@ class _AtlasAppState extends State<AtlasApp> {
       data: widget.data,
       language: language,
       onLanguage: changeLanguage,
+      narrator: narrator,
       random: widget.random,
     ),
   );
@@ -78,11 +95,13 @@ class ExplorerHome extends StatefulWidget {
     required this.data,
     required this.language,
     required this.onLanguage,
+    required this.narrator,
     this.random,
   });
   final AtlasData data;
   final AppLanguage language;
   final ValueChanged<AppLanguage> onLanguage;
+  final Narrator narrator;
   final Random? random;
   @override
   State<ExplorerHome> createState() => _ExplorerHomeState();
@@ -357,6 +376,29 @@ class _ExplorerHomeState extends State<ExplorerHome> {
           Text(s.offline, style: const TextStyle(color: muted, fontSize: 12)),
           const SizedBox(width: 24),
         ],
+        ListenableBuilder(
+          listenable: widget.narrator,
+          builder: (context, _) {
+            final on = widget.narrator.autoRead;
+            return IconButton(
+              key: const Key('read-aloud'),
+              tooltip: on ? s.readAloudOn : s.readAloudOff,
+              isSelected: on,
+              onPressed: widget.narrator.toggleAutoRead,
+              style: IconButton.styleFrom(
+                backgroundColor: on ? forest : const Color(0xFFEEEFE6),
+                foregroundColor: on ? Colors.white : forest,
+              ),
+              icon: Icon(
+                on
+                    ? Icons.record_voice_over_rounded
+                    : Icons.voice_over_off_rounded,
+                size: 22,
+              ),
+            );
+          },
+        ),
+        const SizedBox(width: 8),
         DecoratedBox(
           decoration: BoxDecoration(
             color: const Color(0xFFEEEFE6),
@@ -479,6 +521,7 @@ class _ExplorerHomeState extends State<ExplorerHome> {
               country: selected!,
               language: widget.language,
               random: random,
+              narrator: widget.narrator,
               build: () => buildQuiz(widget.data, selected!, random),
               onClose: () => setState(() => testing = false),
             )
@@ -489,13 +532,26 @@ class _ExplorerHomeState extends State<ExplorerHome> {
   Widget _welcome() => Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _eyebrow(
-        s.t(
-          'A LITTLE CURIOSITY GOES A LONG WAY',
-          'LA CURIOSIDAD TE LLEVA LEJOS',
-        ),
+      Row(
+        children: [
+          Expanded(
+            child: _eyebrow(
+              s.t(
+                'A LITTLE CURIOSITY GOES A LONG WAY',
+                'LA CURIOSIDAD TE LLEVA LEJOS',
+              ),
+            ),
+          ),
+          ListenButton(
+            key: const Key('listen-welcome'),
+            id: 'welcome-${widget.language.name}',
+            parts: welcomeSpeech(s),
+            language: widget.language,
+            narrator: widget.narrator,
+          ),
+        ],
       ),
-      const SizedBox(height: 20),
+      const SizedBox(height: 14),
       ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: const DiscoveryArt(height: 220),
@@ -560,12 +616,24 @@ class _ExplorerHomeState extends State<ExplorerHome> {
           key: const Key('country-name'),
           style: displayStyle(31),
         ),
-        const SizedBox(height: 4),
-        Text(
-          s.region(country.region),
-          style: const TextStyle(color: muted, fontSize: 13),
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                s.region(country.region),
+                style: const TextStyle(color: muted, fontSize: 13),
+              ),
+            ),
+            ListenButton(
+              key: const Key('listen-card'),
+              id: 'card-${current?.id ?? country.id}-${widget.language.name}',
+              parts: cardSpeech(widget.data, country, current, s),
+              language: widget.language,
+              narrator: widget.narrator,
+            ),
+          ],
         ),
-        const SizedBox(height: 14),
+        const SizedBox(height: 8),
         _testPrompt(country),
         const SizedBox(height: 19),
         if (current is QuickFact) ...[
@@ -732,54 +800,12 @@ class _ExplorerHomeState extends State<ExplorerHome> {
   List<Widget> _quickFact(Country country, QuickKind kind) {
     final profile = widget.data.profiles[country.id];
     if (profile == null) return const [];
-    final name = country.name.inLanguage(widget.language);
-    final total = widget.data.profiles.length;
-    final (icon, headline, unit, lines, source) = switch (kind) {
-      QuickKind.people => (
-        Icons.groups_rounded,
-        s.amount(profile.population),
-        s.people.toLowerCase(),
-        [
-          s.populationSentence(name, s.amount(profile.population)),
-          s.populationRank(
-            widget.data.rank(country.id, (p) => p.population),
-            total,
-          ),
-        ],
-        s.source(s.worldBank, profile.populationYear),
-      ),
-      QuickKind.size => (
-        Icons.square_foot_rounded,
-        s.amount(profile.area),
-        s.areaUnit,
-        [
-          s.areaSentence(name, s.amount(profile.area)),
-          s.areaRank(widget.data.rank(country.id, (p) => p.area), total),
-        ],
-        s.source(s.worldBank, profile.areaYear),
-      ),
-      QuickKind.capital => (
-        Icons.account_balance_outlined,
-        profile.capitals
-            .map((c) => c.inLanguage(widget.language))
-            .join(s.t(' & ', ' y ')),
-        null,
-        [
-          s.capitalSentence(
-            name,
-            profile.capitals.map((c) => c.inLanguage(widget.language)).toList(),
-          ),
-        ],
-        s.source(s.naturalEarth),
-      ),
-      QuickKind.neighbours => (
-        Icons.share_location_rounded,
-        '${profile.neighbours.length}',
-        s.t('land neighbors', 'vecinos terrestres'),
-        [s.neighbourSentence(name, profile.neighbours.length)],
-        s.source(s.naturalEarth),
-      ),
-    };
+    final (:icon, :headline, :unit, :lines, :source) = quickInfo(
+      widget.data,
+      country,
+      kind,
+      s,
+    );
     final visitable = {for (final c in widget.data.countries) c.id: c};
     return [
       Semantics(

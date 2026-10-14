@@ -178,6 +178,13 @@ class Strings {
   String get worldBank => t('World Bank', 'Banco Mundial');
   String get naturalEarth => 'Natural Earth';
 
+  String get listen => t('Listen', 'Escuchar');
+  String get stopListening => t('Stop', 'Detener');
+  String get readAloudOn =>
+      t('Stop reading aloud', 'Dejar de leer en voz alta');
+  String get readAloudOff =>
+      t('Read everything aloud', 'Leer todo en voz alta');
+  String get or => t('or', 'o');
   String get takeTest => t('Take the test', 'Haz la prueba');
   String unlockProgress(int done, int total) => t(
     'See every fact to unlock a test · $done of $total',
@@ -188,8 +195,9 @@ class Strings {
   String questionOf(int n, int total) =>
       t('Question $n of $total', 'Pregunta $n de $total');
   String get correct => t('Correct!', '¡Correcto!');
-  String notQuite(String answer) =>
-      t('Not quite. The answer is: $answer', 'Casi. La respuesta es: $answer');
+  String get notQuiteIntro =>
+      t('Not quite. The answer is:', 'Casi. La respuesta es:');
+  String notQuite(String answer) => '$notQuiteIntro $answer';
   String get nextQuestion => t('Next question', 'Siguiente pregunta');
   String get seeScore => t('See my score', 'Ver mi resultado');
   String scoreLine(int score, int total) =>
