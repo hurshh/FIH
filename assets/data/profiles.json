@@ -1,0 +1,2642 @@
+{
+ "sources": {
+  "population": "World Bank, World Development Indicators SP.POP.TOTL (CC BY 4.0)",
+  "area": "World Bank, World Development Indicators AG.SRF.TOTL.K2 (CC BY 4.0)",
+  "capitals": "Natural Earth populated places, public domain",
+  "neighbours": "Derived from Natural Earth country outlines, public domain"
+ },
+ "sourceHashes": [
+  "3e458fc036ad0a66411f2c1e6cac49c5d7bfb81cb1123bc513b22511a2b7fdeb",
+  "9b8e3de09048ef00dfc70357dbb9fa324493f214b5e0ae4daf1aa79a8d10116b",
+  "f04361563c57bff430b3d3fba019d1b574895368819adba706da43217183c746",
+  "3e7ffeab761295d35507c3cbc57f02ce1827f777e39fd41c57fa5f665a7a723d"
+ ],
+ "countries": {
+  "ATG": {
+   "population": {
+    "value": 94209,
+    "year": 2025
+   },
+   "area": {
+    "value": 440,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Saint John's",
+     "es": "Saint John"
+    }
+   ],
+   "neighbours": []
+  },
+  "ARG": {
+   "population": {
+    "value": 45851378,
+    "year": 2025
+   },
+   "area": {
+    "value": 2780400,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Buenos Aires",
+     "es": "Buenos Aires"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "BOL",
+     "en": "Bolivia",
+     "es": "Bolivia"
+    },
+    {
+     "id": "BRA",
+     "en": "Brazil",
+     "es": "Brasil"
+    },
+    {
+     "id": "CHL",
+     "en": "Chile",
+     "es": "Chile"
+    },
+    {
+     "id": "PRY",
+     "en": "Paraguay",
+     "es": "Paraguay"
+    },
+    {
+     "id": "URY",
+     "en": "Uruguay",
+     "es": "Uruguay"
+    }
+   ]
+  },
+  "BHS": {
+   "population": {
+    "value": 403033,
+    "year": 2025
+   },
+   "area": {
+    "value": 13880,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Nassau",
+     "es": "Nasáu"
+    }
+   ],
+   "neighbours": []
+  },
+  "BRB": {
+   "population": {
+    "value": 282623,
+    "year": 2025
+   },
+   "area": {
+    "value": 430,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Bridgetown",
+     "es": "Bridgetown"
+    }
+   ],
+   "neighbours": []
+  },
+  "BLZ": {
+   "population": {
+    "value": 422924,
+    "year": 2025
+   },
+   "area": {
+    "value": 22966,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Belmopan",
+     "es": "Belmopán"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "GTM",
+     "en": "Guatemala",
+     "es": "Guatemala"
+    },
+    {
+     "id": "MEX",
+     "en": "Mexico",
+     "es": "México"
+    }
+   ]
+  },
+  "BOL": {
+   "population": {
+    "value": 12581843,
+    "year": 2025
+   },
+   "area": {
+    "value": 1098580,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "La Paz",
+     "es": "La Paz"
+    },
+    {
+     "en": "Sucre",
+     "es": "Sucre"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "ARG",
+     "en": "Argentina",
+     "es": "Argentina"
+    },
+    {
+     "id": "BRA",
+     "en": "Brazil",
+     "es": "Brasil"
+    },
+    {
+     "id": "CHL",
+     "en": "Chile",
+     "es": "Chile"
+    },
+    {
+     "id": "PRY",
+     "en": "Paraguay",
+     "es": "Paraguay"
+    },
+    {
+     "id": "PER",
+     "en": "Peru",
+     "es": "Perú"
+    }
+   ]
+  },
+  "BRA": {
+   "population": {
+    "value": 212812405,
+    "year": 2025
+   },
+   "area": {
+    "value": 8510420,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Brasília",
+     "es": "Brasilia"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "ARG",
+     "en": "Argentina",
+     "es": "Argentina"
+    },
+    {
+     "id": "BOL",
+     "en": "Bolivia",
+     "es": "Bolivia"
+    },
+    {
+     "id": "COL",
+     "en": "Colombia",
+     "es": "Colombia"
+    },
+    {
+     "id": "FRA",
+     "en": "France (French Guiana)",
+     "es": "Francia (Guayana Francesa)"
+    },
+    {
+     "id": "GUY",
+     "en": "Guyana",
+     "es": "Guyana"
+    },
+    {
+     "id": "PRY",
+     "en": "Paraguay",
+     "es": "Paraguay"
+    },
+    {
+     "id": "PER",
+     "en": "Peru",
+     "es": "Perú"
+    },
+    {
+     "id": "SUR",
+     "en": "Suriname",
+     "es": "Surinam"
+    },
+    {
+     "id": "URY",
+     "en": "Uruguay",
+     "es": "Uruguay"
+    },
+    {
+     "id": "VEN",
+     "en": "Venezuela",
+     "es": "Venezuela"
+    }
+   ]
+  },
+  "CAN": {
+   "population": {
+    "value": 41651653,
+    "year": 2025
+   },
+   "area": {
+    "value": 15634410,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Ottawa",
+     "es": "Ottawa"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "USA",
+     "en": "United States",
+     "es": "Estados Unidos"
+    }
+   ]
+  },
+  "CHL": {
+   "population": {
+    "value": 19859921,
+    "year": 2025
+   },
+   "area": {
+    "value": 757244.88,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Santiago",
+     "es": "Santiago de Chile"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "ARG",
+     "en": "Argentina",
+     "es": "Argentina"
+    },
+    {
+     "id": "BOL",
+     "en": "Bolivia",
+     "es": "Bolivia"
+    },
+    {
+     "id": "PER",
+     "en": "Peru",
+     "es": "Perú"
+    }
+   ]
+  },
+  "COL": {
+   "population": {
+    "value": 53425635,
+    "year": 2025
+   },
+   "area": {
+    "value": 1140619.1,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Bogotá",
+     "es": "Bogotá"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "BRA",
+     "en": "Brazil",
+     "es": "Brasil"
+    },
+    {
+     "id": "ECU",
+     "en": "Ecuador",
+     "es": "Ecuador"
+    },
+    {
+     "id": "PAN",
+     "en": "Panama",
+     "es": "Panamá"
+    },
+    {
+     "id": "PER",
+     "en": "Peru",
+     "es": "Perú"
+    },
+    {
+     "id": "VEN",
+     "en": "Venezuela",
+     "es": "Venezuela"
+    }
+   ]
+  },
+  "CRI": {
+   "population": {
+    "value": 5152950,
+    "year": 2025
+   },
+   "area": {
+    "value": 51100,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "San José",
+     "es": "San José"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "NIC",
+     "en": "Nicaragua",
+     "es": "Nicaragua"
+    },
+    {
+     "id": "PAN",
+     "en": "Panama",
+     "es": "Panamá"
+    }
+   ]
+  },
+  "CUB": {
+   "population": {
+    "value": 10937203,
+    "year": 2025
+   },
+   "area": {
+    "value": 109880,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Havana",
+     "es": "La Habana"
+    }
+   ],
+   "neighbours": []
+  },
+  "DMA": {
+   "population": {
+    "value": 65871,
+    "year": 2025
+   },
+   "area": {
+    "value": 750,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Roseau",
+     "es": "Roseau"
+    }
+   ],
+   "neighbours": []
+  },
+  "DOM": {
+   "population": {
+    "value": 11520487,
+    "year": 2025
+   },
+   "area": {
+    "value": 146839.46,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Santo Domingo",
+     "es": "Santo Domingo"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "HTI",
+     "en": "Haiti",
+     "es": "Haití"
+    }
+   ]
+  },
+  "ECU": {
+   "population": {
+    "value": 18289896,
+    "year": 2025
+   },
+   "area": {
+    "value": 256370,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Quito",
+     "es": "Quito"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "COL",
+     "en": "Colombia",
+     "es": "Colombia"
+    },
+    {
+     "id": "PER",
+     "en": "Peru",
+     "es": "Perú"
+    }
+   ]
+  },
+  "SLV": {
+   "population": {
+    "value": 6365503,
+    "year": 2025
+   },
+   "area": {
+    "value": 21040,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "San Salvador",
+     "es": "San Salvador"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "GTM",
+     "en": "Guatemala",
+     "es": "Guatemala"
+    },
+    {
+     "id": "HND",
+     "en": "Honduras",
+     "es": "Honduras"
+    }
+   ]
+  },
+  "GRD": {
+   "population": {
+    "value": 117303,
+    "year": 2025
+   },
+   "area": {
+    "value": 340,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "St. George's",
+     "es": "Saint George"
+    }
+   ],
+   "neighbours": []
+  },
+  "GTM": {
+   "population": {
+    "value": 18687881,
+    "year": 2025
+   },
+   "area": {
+    "value": 108890,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Guatemala City",
+     "es": "Ciudad de Guatemala"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "BLZ",
+     "en": "Belize",
+     "es": "Belice"
+    },
+    {
+     "id": "SLV",
+     "en": "El Salvador",
+     "es": "El Salvador"
+    },
+    {
+     "id": "HND",
+     "en": "Honduras",
+     "es": "Honduras"
+    },
+    {
+     "id": "MEX",
+     "en": "Mexico",
+     "es": "México"
+    }
+   ]
+  },
+  "GUY": {
+   "population": {
+    "value": 835986,
+    "year": 2025
+   },
+   "area": {
+    "value": 214970,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Georgetown",
+     "es": "Georgetown"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "BRA",
+     "en": "Brazil",
+     "es": "Brasil"
+    },
+    {
+     "id": "SUR",
+     "en": "Suriname",
+     "es": "Surinam"
+    },
+    {
+     "id": "VEN",
+     "en": "Venezuela",
+     "es": "Venezuela"
+    }
+   ]
+  },
+  "HTI": {
+   "population": {
+    "value": 11906095,
+    "year": 2025
+   },
+   "area": {
+    "value": 27750,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Port-au-Prince",
+     "es": "Puerto Príncipe"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "DOM",
+     "en": "Dominican Republic",
+     "es": "República Dominicana"
+    }
+   ]
+  },
+  "HND": {
+   "population": {
+    "value": 11005850,
+    "year": 2025
+   },
+   "area": {
+    "value": 112490,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Tegucigalpa",
+     "es": "Tegucigalpa"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "SLV",
+     "en": "El Salvador",
+     "es": "El Salvador"
+    },
+    {
+     "id": "GTM",
+     "en": "Guatemala",
+     "es": "Guatemala"
+    },
+    {
+     "id": "NIC",
+     "en": "Nicaragua",
+     "es": "Nicaragua"
+    }
+   ]
+  },
+  "JAM": {
+   "population": {
+    "value": 2837077,
+    "year": 2025
+   },
+   "area": {
+    "value": 10990,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Kingston",
+     "es": "Kingston"
+    }
+   ],
+   "neighbours": []
+  },
+  "MEX": {
+   "population": {
+    "value": 131946900,
+    "year": 2025
+   },
+   "area": {
+    "value": 1957193.9,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Mexico City",
+     "es": "Ciudad de México"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "BLZ",
+     "en": "Belize",
+     "es": "Belice"
+    },
+    {
+     "id": "GTM",
+     "en": "Guatemala",
+     "es": "Guatemala"
+    },
+    {
+     "id": "USA",
+     "en": "United States",
+     "es": "Estados Unidos"
+    }
+   ]
+  },
+  "NIC": {
+   "population": {
+    "value": 7007502,
+    "year": 2025
+   },
+   "area": {
+    "value": 130370,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Managua",
+     "es": "Managua"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "CRI",
+     "en": "Costa Rica",
+     "es": "Costa Rica"
+    },
+    {
+     "id": "HND",
+     "en": "Honduras",
+     "es": "Honduras"
+    }
+   ]
+  },
+  "PAN": {
+   "population": {
+    "value": 4571189,
+    "year": 2025
+   },
+   "area": {
+    "value": 75320,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Panama City",
+     "es": "Ciudad de Panamá"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "COL",
+     "en": "Colombia",
+     "es": "Colombia"
+    },
+    {
+     "id": "CRI",
+     "en": "Costa Rica",
+     "es": "Costa Rica"
+    }
+   ]
+  },
+  "PRY": {
+   "population": {
+    "value": 7013078,
+    "year": 2025
+   },
+   "area": {
+    "value": 406752,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Asunción",
+     "es": "Asunción"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "ARG",
+     "en": "Argentina",
+     "es": "Argentina"
+    },
+    {
+     "id": "BOL",
+     "en": "Bolivia",
+     "es": "Bolivia"
+    },
+    {
+     "id": "BRA",
+     "en": "Brazil",
+     "es": "Brasil"
+    }
+   ]
+  },
+  "PER": {
+   "population": {
+    "value": 34576665,
+    "year": 2025
+   },
+   "area": {
+    "value": 1285215.6,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Lima",
+     "es": "Lima"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "BOL",
+     "en": "Bolivia",
+     "es": "Bolivia"
+    },
+    {
+     "id": "BRA",
+     "en": "Brazil",
+     "es": "Brasil"
+    },
+    {
+     "id": "CHL",
+     "en": "Chile",
+     "es": "Chile"
+    },
+    {
+     "id": "COL",
+     "en": "Colombia",
+     "es": "Colombia"
+    },
+    {
+     "id": "ECU",
+     "en": "Ecuador",
+     "es": "Ecuador"
+    }
+   ]
+  },
+  "KNA": {
+   "population": {
+    "value": 46922,
+    "year": 2025
+   },
+   "area": {
+    "value": 260,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Basseterre",
+     "es": "Basseterre"
+    }
+   ],
+   "neighbours": []
+  },
+  "LCA": {
+   "population": {
+    "value": 180149,
+    "year": 2025
+   },
+   "area": {
+    "value": 620,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Castries",
+     "es": "Castries"
+    }
+   ],
+   "neighbours": []
+  },
+  "VCT": {
+   "population": {
+    "value": 99924,
+    "year": 2025
+   },
+   "area": {
+    "value": 390,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Kingstown",
+     "es": "Kingstown"
+    }
+   ],
+   "neighbours": []
+  },
+  "SUR": {
+   "population": {
+    "value": 639850,
+    "year": 2025
+   },
+   "area": {
+    "value": 163820,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Paramaribo",
+     "es": "Paramaribo"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "BRA",
+     "en": "Brazil",
+     "es": "Brasil"
+    },
+    {
+     "id": "FRA",
+     "en": "France (French Guiana)",
+     "es": "Francia (Guayana Francesa)"
+    },
+    {
+     "id": "GUY",
+     "en": "Guyana",
+     "es": "Guyana"
+    }
+   ]
+  },
+  "TTO": {
+   "population": {
+    "value": 1367764,
+    "year": 2025
+   },
+   "area": {
+    "value": 5130,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Port of Spain",
+     "es": "Puerto España"
+    }
+   ],
+   "neighbours": []
+  },
+  "USA": {
+   "population": {
+    "value": 341784857,
+    "year": 2025
+   },
+   "area": {
+    "value": 9831510,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Washington, D.C.",
+     "es": "Washington D. C."
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "CAN",
+     "en": "Canada",
+     "es": "Canadá"
+    },
+    {
+     "id": "MEX",
+     "en": "Mexico",
+     "es": "México"
+    }
+   ]
+  },
+  "URY": {
+   "population": {
+    "value": 3384688,
+    "year": 2025
+   },
+   "area": {
+    "value": 176220,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Montevideo",
+     "es": "Montevideo"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "ARG",
+     "en": "Argentina",
+     "es": "Argentina"
+    },
+    {
+     "id": "BRA",
+     "en": "Brazil",
+     "es": "Brasil"
+    }
+   ]
+  },
+  "VEN": {
+   "population": {
+    "value": 28516896,
+    "year": 2025
+   },
+   "area": {
+    "value": 912050,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Caracas",
+     "es": "Caracas"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "BRA",
+     "en": "Brazil",
+     "es": "Brasil"
+    },
+    {
+     "id": "COL",
+     "en": "Colombia",
+     "es": "Colombia"
+    },
+    {
+     "id": "GUY",
+     "en": "Guyana",
+     "es": "Guyana"
+    }
+   ]
+  },
+  "AFG": {
+   "population": {
+    "value": 43844111,
+    "year": 2025
+   },
+   "area": {
+    "value": 652870,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Kabul",
+     "es": "Kabul"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "CHN",
+     "en": "China",
+     "es": "China"
+    },
+    {
+     "id": "IND",
+     "en": "India",
+     "es": "India"
+    },
+    {
+     "id": "IRN",
+     "en": "Iran",
+     "es": "Irán"
+    },
+    {
+     "id": "PAK",
+     "en": "Pakistan",
+     "es": "Pakistán"
+    },
+    {
+     "id": "TJK",
+     "en": "Tajikistan",
+     "es": "Tayikistán"
+    },
+    {
+     "id": "TKM",
+     "en": "Turkmenistan",
+     "es": "Turkmenistán"
+    },
+    {
+     "id": "UZB",
+     "en": "Uzbekistan",
+     "es": "Uzbekistán"
+    }
+   ]
+  },
+  "ARM": {
+   "population": {
+    "value": 3086700,
+    "year": 2025
+   },
+   "area": {
+    "value": 29740,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Yerevan",
+     "es": "Ereván"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "AZE",
+     "en": "Azerbaijan",
+     "es": "Azerbaiyán"
+    },
+    {
+     "id": "GEO",
+     "en": "Georgia",
+     "es": "Georgia"
+    },
+    {
+     "id": "IRN",
+     "en": "Iran",
+     "es": "Irán"
+    },
+    {
+     "id": "TUR",
+     "en": "Turkey",
+     "es": "Turquía"
+    }
+   ]
+  },
+  "AZE": {
+   "population": {
+    "value": 10246996,
+    "year": 2025
+   },
+   "area": {
+    "value": 86600,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Baku",
+     "es": "Bakú"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "ARM",
+     "en": "Armenia",
+     "es": "Armenia"
+    },
+    {
+     "id": "GEO",
+     "en": "Georgia",
+     "es": "Georgia"
+    },
+    {
+     "id": "IRN",
+     "en": "Iran",
+     "es": "Irán"
+    },
+    {
+     "id": "RUS",
+     "en": "Russia",
+     "es": "Rusia"
+    },
+    {
+     "id": "TUR",
+     "en": "Turkey",
+     "es": "Turquía"
+    }
+   ]
+  },
+  "BHR": {
+   "population": {
+    "value": 1600366,
+    "year": 2025
+   },
+   "area": {
+    "value": 800,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Manama",
+     "es": "Manama"
+    }
+   ],
+   "neighbours": []
+  },
+  "BGD": {
+   "population": {
+    "value": 175686899,
+    "year": 2025
+   },
+   "area": {
+    "value": 147570,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Dhaka",
+     "es": "Dacca"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "IND",
+     "en": "India",
+     "es": "India"
+    },
+    {
+     "id": "MMR",
+     "en": "Myanmar",
+     "es": "Birmania"
+    }
+   ]
+  },
+  "BTN": {
+   "population": {
+    "value": 796682,
+    "year": 2025
+   },
+   "area": {
+    "value": 38390,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Thimphu",
+     "es": "Timbu"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "CHN",
+     "en": "China",
+     "es": "China"
+    },
+    {
+     "id": "IND",
+     "en": "India",
+     "es": "India"
+    }
+   ]
+  },
+  "BRN": {
+   "population": {
+    "value": 466330,
+    "year": 2025
+   },
+   "area": {
+    "value": 5770,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Bandar Seri Begawan",
+     "es": "Bandar Seri Begawan"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "MYS",
+     "en": "Malaysia",
+     "es": "Malasia"
+    }
+   ]
+  },
+  "KHM": {
+   "population": {
+    "value": 17847982,
+    "year": 2025
+   },
+   "area": {
+    "value": 181040,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Phnom Penh",
+     "es": "Nom Pen"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "LAO",
+     "en": "Laos",
+     "es": "Laos"
+    },
+    {
+     "id": "THA",
+     "en": "Thailand",
+     "es": "Tailandia"
+    },
+    {
+     "id": "VNM",
+     "en": "Vietnam",
+     "es": "Vietnam"
+    }
+   ]
+  },
+  "CHN": {
+   "population": {
+    "value": 1406585000,
+    "year": 2025
+   },
+   "area": {
+    "value": 9562910,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Beijing",
+     "es": "Pekín"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "AFG",
+     "en": "Afghanistan",
+     "es": "Afganistán"
+    },
+    {
+     "id": "BTN",
+     "en": "Bhutan",
+     "es": "Bután"
+    },
+    {
+     "id": "IND",
+     "en": "India",
+     "es": "India"
+    },
+    {
+     "id": "KAZ",
+     "en": "Kazakhstan",
+     "es": "Kazajistán"
+    },
+    {
+     "id": "KGZ",
+     "en": "Kyrgyzstan",
+     "es": "Kirguistán"
+    },
+    {
+     "id": "LAO",
+     "en": "Laos",
+     "es": "Laos"
+    },
+    {
+     "id": "MNG",
+     "en": "Mongolia",
+     "es": "Mongolia"
+    },
+    {
+     "id": "MMR",
+     "en": "Myanmar",
+     "es": "Birmania"
+    },
+    {
+     "id": "NPL",
+     "en": "Nepal",
+     "es": "Nepal"
+    },
+    {
+     "id": "PRK",
+     "en": "North Korea",
+     "es": "Corea del Norte"
+    },
+    {
+     "id": "RUS",
+     "en": "Russia",
+     "es": "Rusia"
+    },
+    {
+     "id": "TJK",
+     "en": "Tajikistan",
+     "es": "Tayikistán"
+    },
+    {
+     "id": "VNM",
+     "en": "Vietnam",
+     "es": "Vietnam"
+    }
+   ]
+  },
+  "CYP": {
+   "population": {
+    "value": 1370754,
+    "year": 2025
+   },
+   "area": {
+    "value": 9250,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Nicosia",
+     "es": "Nicosia"
+    }
+   ],
+   "neighbours": []
+  },
+  "GEO": {
+   "population": {
+    "value": 3935766,
+    "year": 2025
+   },
+   "area": {
+    "value": 69700,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Tbilisi",
+     "es": "Tiflis"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "ARM",
+     "en": "Armenia",
+     "es": "Armenia"
+    },
+    {
+     "id": "AZE",
+     "en": "Azerbaijan",
+     "es": "Azerbaiyán"
+    },
+    {
+     "id": "RUS",
+     "en": "Russia",
+     "es": "Rusia"
+    },
+    {
+     "id": "TUR",
+     "en": "Turkey",
+     "es": "Turquía"
+    }
+   ]
+  },
+  "IND": {
+   "population": {
+    "value": 1463865525,
+    "year": 2025
+   },
+   "area": {
+    "value": 3287260,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "New Delhi",
+     "es": "Nueva Delhi"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "AFG",
+     "en": "Afghanistan",
+     "es": "Afganistán"
+    },
+    {
+     "id": "BGD",
+     "en": "Bangladesh",
+     "es": "Bangladés"
+    },
+    {
+     "id": "BTN",
+     "en": "Bhutan",
+     "es": "Bután"
+    },
+    {
+     "id": "CHN",
+     "en": "China",
+     "es": "China"
+    },
+    {
+     "id": "MMR",
+     "en": "Myanmar",
+     "es": "Birmania"
+    },
+    {
+     "id": "NPL",
+     "en": "Nepal",
+     "es": "Nepal"
+    },
+    {
+     "id": "PAK",
+     "en": "Pakistan",
+     "es": "Pakistán"
+    }
+   ]
+  },
+  "IDN": {
+   "population": {
+    "value": 285721236,
+    "year": 2025
+   },
+   "area": {
+    "value": 1916906.77,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Jakarta",
+     "es": "Yakarta"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "MYS",
+     "en": "Malaysia",
+     "es": "Malasia"
+    },
+    {
+     "id": "PNG",
+     "en": "Papua New Guinea",
+     "es": "Papúa Nueva Guinea"
+    },
+    {
+     "id": "TLS",
+     "en": "Timor-Leste",
+     "es": "Timor Oriental"
+    }
+   ]
+  },
+  "IRN": {
+   "population": {
+    "value": 92417681,
+    "year": 2025
+   },
+   "area": {
+    "value": 1745150,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Tehran",
+     "es": "Teherán"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "AFG",
+     "en": "Afghanistan",
+     "es": "Afganistán"
+    },
+    {
+     "id": "ARM",
+     "en": "Armenia",
+     "es": "Armenia"
+    },
+    {
+     "id": "AZE",
+     "en": "Azerbaijan",
+     "es": "Azerbaiyán"
+    },
+    {
+     "id": "IRQ",
+     "en": "Iraq",
+     "es": "Irak"
+    },
+    {
+     "id": "PAK",
+     "en": "Pakistan",
+     "es": "Pakistán"
+    },
+    {
+     "id": "TUR",
+     "en": "Turkey",
+     "es": "Turquía"
+    },
+    {
+     "id": "TKM",
+     "en": "Turkmenistan",
+     "es": "Turkmenistán"
+    }
+   ]
+  },
+  "IRQ": {
+   "population": {
+    "value": 47020774,
+    "year": 2025
+   },
+   "area": {
+    "value": 435050,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Baghdad",
+     "es": "Bagdad"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "IRN",
+     "en": "Iran",
+     "es": "Irán"
+    },
+    {
+     "id": "JOR",
+     "en": "Jordan",
+     "es": "Jordania"
+    },
+    {
+     "id": "KWT",
+     "en": "Kuwait",
+     "es": "Kuwait"
+    },
+    {
+     "id": "SAU",
+     "en": "Saudi Arabia",
+     "es": "Arabia Saudita"
+    },
+    {
+     "id": "SYR",
+     "en": "Syria",
+     "es": "Siria"
+    },
+    {
+     "id": "TUR",
+     "en": "Turkey",
+     "es": "Turquía"
+    }
+   ]
+  },
+  "ISR": {
+   "population": {
+    "value": 10122800,
+    "year": 2025
+   },
+   "area": {
+    "value": 22070,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Jerusalem",
+     "es": "Jerusalén"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "EGY",
+     "en": "Egypt",
+     "es": "Egipto"
+    },
+    {
+     "id": "JOR",
+     "en": "Jordan",
+     "es": "Jordania"
+    },
+    {
+     "id": "LBN",
+     "en": "Lebanon",
+     "es": "Líbano"
+    },
+    {
+     "id": "SYR",
+     "en": "Syria",
+     "es": "Siria"
+    }
+   ]
+  },
+  "JPN": {
+   "population": {
+    "value": 123366734,
+    "year": 2025
+   },
+   "area": {
+    "value": 377969.27,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Tokyo",
+     "es": "Tokio"
+    }
+   ],
+   "neighbours": []
+  },
+  "JOR": {
+   "population": {
+    "value": 11520684,
+    "year": 2025
+   },
+   "area": {
+    "value": 89318,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Amman",
+     "es": "Amán"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "IRQ",
+     "en": "Iraq",
+     "es": "Irak"
+    },
+    {
+     "id": "ISR",
+     "en": "Israel",
+     "es": "Israel"
+    },
+    {
+     "id": "SAU",
+     "en": "Saudi Arabia",
+     "es": "Arabia Saudita"
+    },
+    {
+     "id": "SYR",
+     "en": "Syria",
+     "es": "Siria"
+    }
+   ]
+  },
+  "KAZ": {
+   "population": {
+    "value": 20843754,
+    "year": 2025
+   },
+   "area": {
+    "value": 2724902,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Astana",
+     "es": "Astaná"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "CHN",
+     "en": "China",
+     "es": "China"
+    },
+    {
+     "id": "KGZ",
+     "en": "Kyrgyzstan",
+     "es": "Kirguistán"
+    },
+    {
+     "id": "RUS",
+     "en": "Russia",
+     "es": "Rusia"
+    },
+    {
+     "id": "TKM",
+     "en": "Turkmenistan",
+     "es": "Turkmenistán"
+    },
+    {
+     "id": "UZB",
+     "en": "Uzbekistan",
+     "es": "Uzbekistán"
+    }
+   ]
+  },
+  "KWT": {
+   "population": {
+    "value": 4865298,
+    "year": 2025
+   },
+   "area": {
+    "value": 17820,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Kuwait City",
+     "es": "Ciudad de Kuwait"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "IRQ",
+     "en": "Iraq",
+     "es": "Irak"
+    },
+    {
+     "id": "SAU",
+     "en": "Saudi Arabia",
+     "es": "Arabia Saudita"
+    }
+   ]
+  },
+  "KGZ": {
+   "population": {
+    "value": 7343064,
+    "year": 2025
+   },
+   "area": {
+    "value": 199950,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Bishkek",
+     "es": "Biskek"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "CHN",
+     "en": "China",
+     "es": "China"
+    },
+    {
+     "id": "KAZ",
+     "en": "Kazakhstan",
+     "es": "Kazajistán"
+    },
+    {
+     "id": "TJK",
+     "en": "Tajikistan",
+     "es": "Tayikistán"
+    },
+    {
+     "id": "UZB",
+     "en": "Uzbekistan",
+     "es": "Uzbekistán"
+    }
+   ]
+  },
+  "LAO": {
+   "population": {
+    "value": 7873046,
+    "year": 2025
+   },
+   "area": {
+    "value": 236800,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Vientiane",
+     "es": "Vientián"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "KHM",
+     "en": "Cambodia",
+     "es": "Camboya"
+    },
+    {
+     "id": "CHN",
+     "en": "China",
+     "es": "China"
+    },
+    {
+     "id": "MMR",
+     "en": "Myanmar",
+     "es": "Birmania"
+    },
+    {
+     "id": "THA",
+     "en": "Thailand",
+     "es": "Tailandia"
+    },
+    {
+     "id": "VNM",
+     "en": "Vietnam",
+     "es": "Vietnam"
+    }
+   ]
+  },
+  "LBN": {
+   "population": {
+    "value": 5849421,
+    "year": 2025
+   },
+   "area": {
+    "value": 10450,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Beirut",
+     "es": "Beirut"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "ISR",
+     "en": "Israel",
+     "es": "Israel"
+    },
+    {
+     "id": "SYR",
+     "en": "Syria",
+     "es": "Siria"
+    }
+   ]
+  },
+  "MYS": {
+   "population": {
+    "value": 35977838,
+    "year": 2025
+   },
+   "area": {
+    "value": 330411,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Kuala Lumpur",
+     "es": "Kuala Lumpur"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "BRN",
+     "en": "Brunei",
+     "es": "Brunéi"
+    },
+    {
+     "id": "IDN",
+     "en": "Indonesia",
+     "es": "Indonesia"
+    },
+    {
+     "id": "THA",
+     "en": "Thailand",
+     "es": "Tailandia"
+    }
+   ]
+  },
+  "MDV": {
+   "population": {
+    "value": 529676,
+    "year": 2025
+   },
+   "area": {
+    "value": 300,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Malé",
+     "es": "Malé"
+    }
+   ],
+   "neighbours": []
+  },
+  "MNG": {
+   "population": {
+    "value": 3568978,
+    "year": 2025
+   },
+   "area": {
+    "value": 1564115.75,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Ulaanbaatar",
+     "es": "Ulán Bator"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "CHN",
+     "en": "China",
+     "es": "China"
+    },
+    {
+     "id": "RUS",
+     "en": "Russia",
+     "es": "Rusia"
+    }
+   ]
+  },
+  "MMR": {
+   "population": {
+    "value": 54850648,
+    "year": 2025
+   },
+   "area": {
+    "value": 676590,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Naypyidaw",
+     "es": "Naipyidó"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "BGD",
+     "en": "Bangladesh",
+     "es": "Bangladés"
+    },
+    {
+     "id": "CHN",
+     "en": "China",
+     "es": "China"
+    },
+    {
+     "id": "IND",
+     "en": "India",
+     "es": "India"
+    },
+    {
+     "id": "LAO",
+     "en": "Laos",
+     "es": "Laos"
+    },
+    {
+     "id": "THA",
+     "en": "Thailand",
+     "es": "Tailandia"
+    }
+   ]
+  },
+  "NPL": {
+   "population": {
+    "value": 29618118,
+    "year": 2025
+   },
+   "area": {
+    "value": 147180,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Kathmandu",
+     "es": "Katmandú"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "CHN",
+     "en": "China",
+     "es": "China"
+    },
+    {
+     "id": "IND",
+     "en": "India",
+     "es": "India"
+    }
+   ]
+  },
+  "PRK": {
+   "population": {
+    "value": 26571036,
+    "year": 2025
+   },
+   "area": {
+    "value": 120540,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Pyongyang",
+     "es": "Pionyang"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "CHN",
+     "en": "China",
+     "es": "China"
+    },
+    {
+     "id": "RUS",
+     "en": "Russia",
+     "es": "Rusia"
+    },
+    {
+     "id": "KOR",
+     "en": "South Korea",
+     "es": "Corea del Sur"
+    }
+   ]
+  },
+  "OMN": {
+   "population": {
+    "value": 5494691,
+    "year": 2025
+   },
+   "area": {
+    "value": 309500,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Muscat",
+     "es": "Mascate"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "SAU",
+     "en": "Saudi Arabia",
+     "es": "Arabia Saudita"
+    },
+    {
+     "id": "ARE",
+     "en": "United Arab Emirates",
+     "es": "Emiratos Árabes Unidos"
+    },
+    {
+     "id": "YEM",
+     "en": "Yemen",
+     "es": "Yemen"
+    }
+   ]
+  },
+  "PAK": {
+   "population": {
+    "value": 255219554,
+    "year": 2025
+   },
+   "area": {
+    "value": 796100,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Islamabad",
+     "es": "Islamabad"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "AFG",
+     "en": "Afghanistan",
+     "es": "Afganistán"
+    },
+    {
+     "id": "IND",
+     "en": "India",
+     "es": "India"
+    },
+    {
+     "id": "IRN",
+     "en": "Iran",
+     "es": "Irán"
+    }
+   ]
+  },
+  "PHL": {
+   "population": {
+    "value": 116786962,
+    "year": 2025
+   },
+   "area": {
+    "value": 300000,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Manila",
+     "es": "Manila"
+    }
+   ],
+   "neighbours": []
+  },
+  "QAT": {
+   "population": {
+    "value": 2972215,
+    "year": 2025
+   },
+   "area": {
+    "value": 11490,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Doha",
+     "es": "Doha"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "SAU",
+     "en": "Saudi Arabia",
+     "es": "Arabia Saudita"
+    }
+   ]
+  },
+  "SAU": {
+   "population": {
+    "value": 36973555,
+    "year": 2025
+   },
+   "area": {
+    "value": 2149690,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Riyadh",
+     "es": "Riad"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "IRQ",
+     "en": "Iraq",
+     "es": "Irak"
+    },
+    {
+     "id": "JOR",
+     "en": "Jordan",
+     "es": "Jordania"
+    },
+    {
+     "id": "KWT",
+     "en": "Kuwait",
+     "es": "Kuwait"
+    },
+    {
+     "id": "OMN",
+     "en": "Oman",
+     "es": "Omán"
+    },
+    {
+     "id": "QAT",
+     "en": "Qatar",
+     "es": "Catar"
+    },
+    {
+     "id": "ARE",
+     "en": "United Arab Emirates",
+     "es": "Emiratos Árabes Unidos"
+    },
+    {
+     "id": "YEM",
+     "en": "Yemen",
+     "es": "Yemen"
+    }
+   ]
+  },
+  "SGP": {
+   "population": {
+    "value": 6111175,
+    "year": 2025
+   },
+   "area": {
+    "value": 728,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Singapore",
+     "es": "Singapur"
+    }
+   ],
+   "neighbours": []
+  },
+  "KOR": {
+   "population": {
+    "value": 51684564,
+    "year": 2025
+   },
+   "area": {
+    "value": 100450,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Seoul",
+     "es": "Seúl"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "PRK",
+     "en": "North Korea",
+     "es": "Corea del Norte"
+    }
+   ]
+  },
+  "LKA": {
+   "population": {
+    "value": 21756000,
+    "year": 2025
+   },
+   "area": {
+    "value": 65610,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Colombo",
+     "es": "Colombo"
+    },
+    {
+     "en": "Sri Jayawardenepura Kotte",
+     "es": "Sri Jayawardenapura Kotte"
+    }
+   ],
+   "neighbours": []
+  },
+  "SYR": {
+   "population": {
+    "value": 25620427,
+    "year": 2025
+   },
+   "area": {
+    "value": 185180,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Damascus",
+     "es": "Damasco"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "IRQ",
+     "en": "Iraq",
+     "es": "Irak"
+    },
+    {
+     "id": "ISR",
+     "en": "Israel",
+     "es": "Israel"
+    },
+    {
+     "id": "JOR",
+     "en": "Jordan",
+     "es": "Jordania"
+    },
+    {
+     "id": "LBN",
+     "en": "Lebanon",
+     "es": "Líbano"
+    },
+    {
+     "id": "TUR",
+     "en": "Turkey",
+     "es": "Turquía"
+    }
+   ]
+  },
+  "TJK": {
+   "population": {
+    "value": 10786734,
+    "year": 2025
+   },
+   "area": {
+    "value": 141379,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Dushanbe",
+     "es": "Dusambé"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "AFG",
+     "en": "Afghanistan",
+     "es": "Afganistán"
+    },
+    {
+     "id": "CHN",
+     "en": "China",
+     "es": "China"
+    },
+    {
+     "id": "KGZ",
+     "en": "Kyrgyzstan",
+     "es": "Kirguistán"
+    },
+    {
+     "id": "UZB",
+     "en": "Uzbekistan",
+     "es": "Uzbekistán"
+    }
+   ]
+  },
+  "THA": {
+   "population": {
+    "value": 71619863,
+    "year": 2025
+   },
+   "area": {
+    "value": 513115.021,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Bangkok",
+     "es": "Bangkok"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "KHM",
+     "en": "Cambodia",
+     "es": "Camboya"
+    },
+    {
+     "id": "LAO",
+     "en": "Laos",
+     "es": "Laos"
+    },
+    {
+     "id": "MYS",
+     "en": "Malaysia",
+     "es": "Malasia"
+    },
+    {
+     "id": "MMR",
+     "en": "Myanmar",
+     "es": "Birmania"
+    }
+   ]
+  },
+  "TLS": {
+   "population": {
+    "value": 1418517,
+    "year": 2025
+   },
+   "area": {
+    "value": 14870,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Dili",
+     "es": "Dili"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "IDN",
+     "en": "Indonesia",
+     "es": "Indonesia"
+    }
+   ]
+  },
+  "TUR": {
+   "population": {
+    "value": 85878556,
+    "year": 2025
+   },
+   "area": {
+    "value": 785350,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Ankara",
+     "es": "Ankara"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "ARM",
+     "en": "Armenia",
+     "es": "Armenia"
+    },
+    {
+     "id": "AZE",
+     "en": "Azerbaijan",
+     "es": "Azerbaiyán"
+    },
+    {
+     "id": "BGR",
+     "en": "Bulgaria",
+     "es": "Bulgaria"
+    },
+    {
+     "id": "GEO",
+     "en": "Georgia",
+     "es": "Georgia"
+    },
+    {
+     "id": "GRC",
+     "en": "Greece",
+     "es": "Grecia"
+    },
+    {
+     "id": "IRN",
+     "en": "Iran",
+     "es": "Irán"
+    },
+    {
+     "id": "IRQ",
+     "en": "Iraq",
+     "es": "Irak"
+    },
+    {
+     "id": "SYR",
+     "en": "Syria",
+     "es": "Siria"
+    }
+   ]
+  },
+  "TKM": {
+   "population": {
+    "value": 7618847,
+    "year": 2025
+   },
+   "area": {
+    "value": 491209,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Ashgabat",
+     "es": "Asjabad"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "AFG",
+     "en": "Afghanistan",
+     "es": "Afganistán"
+    },
+    {
+     "id": "IRN",
+     "en": "Iran",
+     "es": "Irán"
+    },
+    {
+     "id": "KAZ",
+     "en": "Kazakhstan",
+     "es": "Kazajistán"
+    },
+    {
+     "id": "UZB",
+     "en": "Uzbekistan",
+     "es": "Uzbekistán"
+    }
+   ]
+  },
+  "ARE": {
+   "population": {
+    "value": 11513149,
+    "year": 2025
+   },
+   "area": {
+    "value": 98647.9,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Abu Dhabi",
+     "es": "Abu Dhabi"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "OMN",
+     "en": "Oman",
+     "es": "Omán"
+    },
+    {
+     "id": "SAU",
+     "en": "Saudi Arabia",
+     "es": "Arabia Saudita"
+    }
+   ]
+  },
+  "UZB": {
+   "population": {
+    "value": 37053428,
+    "year": 2025
+   },
+   "area": {
+    "value": 448920,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Tashkent",
+     "es": "Taskent"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "AFG",
+     "en": "Afghanistan",
+     "es": "Afganistán"
+    },
+    {
+     "id": "KAZ",
+     "en": "Kazakhstan",
+     "es": "Kazajistán"
+    },
+    {
+     "id": "KGZ",
+     "en": "Kyrgyzstan",
+     "es": "Kirguistán"
+    },
+    {
+     "id": "TJK",
+     "en": "Tajikistan",
+     "es": "Tayikistán"
+    },
+    {
+     "id": "TKM",
+     "en": "Turkmenistan",
+     "es": "Turkmenistán"
+    }
+   ]
+  },
+  "VNM": {
+   "population": {
+    "value": 101598527,
+    "year": 2025
+   },
+   "area": {
+    "value": 331338.31,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Hanoi",
+     "es": "Hanói"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "KHM",
+     "en": "Cambodia",
+     "es": "Camboya"
+    },
+    {
+     "id": "CHN",
+     "en": "China",
+     "es": "China"
+    },
+    {
+     "id": "LAO",
+     "en": "Laos",
+     "es": "Laos"
+    }
+   ]
+  },
+  "YEM": {
+   "population": {
+    "value": 41773878,
+    "year": 2025
+   },
+   "area": {
+    "value": 527970,
+    "year": 2023
+   },
+   "capitals": [
+    {
+     "en": "Sanaa",
+     "es": "Saná"
+    }
+   ],
+   "neighbours": [
+    {
+     "id": "OMN",
+     "en": "Oman",
+     "es": "Omán"
+    },
+    {
+     "id": "SAU",
+     "en": "Saudi Arabia",
+     "es": "Arabia Saudita"
+    }
+   ]
+  }
+ }
+}

@@ -79,8 +79,8 @@ class _CountryPickerState extends State<CountryPicker> {
                     onChanged: (value) => setState(() => query = value),
                     decoration: InputDecoration(
                       hintText: s.t(
-                        'Try Mexico, Brazil, Peru…',
-                        'Prueba México, Brasil, Perú…',
+                        'Try Mexico, Brazil, Japan…',
+                        'Prueba México, Brasil, Japón…',
                       ),
                       prefixIcon: const Icon(Icons.search_rounded),
                       filled: true,
@@ -153,7 +153,7 @@ class _CountryPickerState extends State<CountryPicker> {
                                   ),
                                 ),
                                 subtitle: Text(
-                                  country.region == 'north' ? s.north : s.south,
+                                  s.region(country.region),
                                   style: const TextStyle(
                                     fontSize: 12,
                                     color: muted,

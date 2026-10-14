@@ -14,6 +14,10 @@ The first Flutter prototype is implemented with an illustrated selectable map, 3
 
 The web preview compiles and automated interaction/layout tests are included. Native iPhone/iPad testing remains pending because full Xcode is not installed on the development Mac. See `README.md` for running/testing instructions and `DATA_SOURCES.md` for the exact geographic deferrals and source limitations. This snapshot does not mark device testing, editorial review, or App Store release complete.
 
+## Asia extension — September 23, 2026
+
+Asia was added as a second continent using the same approach: a continent switch on the map, all Asian UN member states selectable (47), prominent countries labelled on the map, disputed areas deferred under the existing policy (except Jammu and Kashmir, drawn as part of India at the project owner's direction), and twelve bilingual demonstration facts for China, India, Indonesia, Japan, and South Korea. Two more United States facts were added so every country with facts has at least two. Every country also gained quick facts (population, size, capital, land neighbours) shown as cards in the same "Another fact" rotation; this adds a small structured summary alongside the random-fact experience. A per-country two-option test unlocks after a child has seen every fact for that country. This reverses the earlier "no quizzes" scope at the project owner's request; scores are not saved and there are still no rewards, accounts, or rankings. The Americas scope and content are unchanged. Geography review of Asian deferrals is added to the details to settle later.
+
 ## Confirmed requirements
 
 | Area | Decision |
@@ -136,5 +140,6 @@ Set a schedule and cost estimate after milestones 1–3 establish content volume
 1. Coverage of non-disputed dependent territories beyond the country baseline.
 2. The content approver's identity and Spanish review coverage before completing the content collection.
 3. The exact deferred-region list and map treatment when map data is selected.
+4. Geography review of the Asian deferrals, including the decisions to keep Israel selectable, to show Taiwan, Palestine, and Northern Cyprus as neutral outlines, and to draw Jammu and Kashmir as part of India (see `DATA_SOURCES.md`).
 
 Final app name, branding, prototype target date, budget ceiling, tester devices, and publishing ownership can be settled as the prototype work is scoped.
