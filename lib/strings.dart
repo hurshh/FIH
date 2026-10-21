@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'models.dart';
 
 class Strings {
@@ -13,7 +15,7 @@ class Strings {
   );
   String get offline =>
       t('Ready for offline adventures', 'Aventuras sin conexión');
-  String get explore => t('Explore the Americas', 'Explora las Américas');
+  String get explore => t('Explore', 'Explora');
   String get mapHint =>
       t('Pinch to zoom · Tap a country', 'Amplía con dos dedos · Toca un país');
   String get countries => t('Find a country', 'Busca un país');
@@ -36,8 +38,20 @@ class Strings {
   String get surprise => t('Surprise me', 'Sorpréndeme');
   String get all => t('All places', 'Todos');
   String get withFacts => t('With discoveries', 'Con descubrimientos');
-  String get north => t('North America', 'América del Norte');
-  String get south => t('South America', 'América del Sur');
+  String continent(String id) => switch (id) {
+    'asia' => 'Asia',
+    _ => t('Americas', 'Américas'),
+  };
+  String region(String id) => switch (id) {
+    'north' => t('North America', 'América del Norte'),
+    'south' => t('South America', 'América del Sur'),
+    'east-asia' => t('East Asia', 'Asia oriental'),
+    'southeast-asia' => t('Southeast Asia', 'Sudeste asiático'),
+    'south-asia' => t('South Asia', 'Asia del Sur'),
+    'central-asia' => t('Central Asia', 'Asia central'),
+    'west-asia' => t('West Asia', 'Asia occidental'),
+    _ => '',
+  };
   String get reset => t('Reset map', 'Restablecer mapa');
   String get zoomIn => t('Zoom in', 'Acercar');
   String get zoomOut => t('Zoom out', 'Alejar');
@@ -51,6 +65,177 @@ class Strings {
     'You found our first fact here! More discoveries will be added later.',
     '¡Encontraste nuestro primer dato de este lugar! Agregaremos más descubrimientos después.',
   );
+  String get people => t('People', 'Población');
+
+  /// Rounds to three significant figures for young readers. English uses
+  /// "million"/"billion"; Spanish avoids decimals and separates thousands
+  /// with spaces, which reads the same across Latin America.
+  String amount(num value) {
+    final digits = value.round().toString().length;
+    final step = digits > 3 ? math.pow(10, digits - 3).toInt() : 1;
+    final n = (value / step).round() * step;
+    if (language == AppLanguage.en) {
+      if (n >= 1e9) return '${_trim(n / 1e9)} billion';
+      if (n >= 1e6) return '${_trim(n / 1e6)} million';
+      return _group(n, ',');
+    }
+    if (n >= 1e7) {
+      return '${_group((n / 1e6).round(), ' ', minimum: 5)} millones';
+    }
+    return _group(n, ' ', minimum: 5);
+  }
+
+  // "1464 millones de personas", but "530 000 personas".
+  String _of(String amount) =>
+      amount.endsWith('millones') ? '$amount de' : amount;
+
+  String _trim(num value) {
+    final fixed = value.toStringAsFixed(value < 10 ? 2 : (value < 100 ? 1 : 0));
+    return fixed.contains('.')
+        ? fixed.replaceFirst(RegExp(r'\.?0+$'), '')
+        : fixed;
+  }
+
+  String _group(int value, String separator, {int minimum = 4}) {
+    final text = value.toString();
+    if (text.length < minimum) return text;
+    return text.replaceAllMapped(
+      RegExp(r'\B(?=(\d{3})+(?!\d))'),
+      (_) => separator,
+    );
+  }
+
+  String ordinal(int n) {
+    if (language == AppLanguage.es) return '$n.º';
+    final suffix = (n % 100 >= 11 && n % 100 <= 13)
+        ? 'th'
+        : switch (n % 10) {
+            1 => 'st',
+            2 => 'nd',
+            3 => 'rd',
+            _ => 'th',
+          };
+    return '$n$suffix';
+  }
+
+  String populationSentence(String country, String amount) => t(
+    'About $amount people live in $country.',
+    'En $country viven unas ${_of(amount)} personas.',
+  );
+  String populationRank(int rank, int total) => rank == 1
+      ? t(
+          'That’s the most people of all $total countries on our maps!',
+          '¡Es el país con más habitantes de los $total de nuestros mapas!',
+        )
+      : t(
+          'That’s the ${ordinal(rank)} most people of the $total countries on our maps.',
+          'Es el ${ordinal(rank)} país con más habitantes de los $total de nuestros mapas.',
+        );
+  String get areaUnit => t('square kilometers', 'kilómetros cuadrados');
+  String areaSentence(String country, String amount) => t(
+    '$country covers about $amount square kilometers.',
+    '$country ocupa unos ${_of(amount)} kilómetros cuadrados.',
+  );
+  String areaRank(int rank, int total) => rank == 1
+      ? t(
+          'That’s the biggest of all $total countries on our maps!',
+          '¡Es el más grande de los $total países de nuestros mapas!',
+        )
+      : t(
+          'That’s the ${ordinal(rank)} biggest of the $total countries on our maps.',
+          'Es el ${ordinal(rank)} más grande de los $total países de nuestros mapas.',
+        );
+  String capitalSentence(String country, List<String> capitals) =>
+      capitals.length == 1
+      ? t(
+          'The capital of $country is ${capitals.single}.',
+          'La capital de $country es ${capitals.single}.',
+        )
+      : t(
+          '$country has ${capitals.length} capitals: ${capitals.join(' and ')}.',
+          '$country tiene ${capitals.length} capitales: ${capitals.join(' y ')}.',
+        );
+  String neighbourSentence(String country, int count) => switch (count) {
+    0 => t(
+      '$country has no land borders. It’s surrounded by sea!',
+      '$country no tiene fronteras terrestres. ¡Está rodeado de mar!',
+    ),
+    1 => t(
+      '$country shares a land border with 1 country.',
+      '$country comparte frontera terrestre con 1 país.',
+    ),
+    _ => t(
+      '$country shares land borders with $count countries.',
+      '$country comparte fronteras terrestres con $count países.',
+    ),
+  };
+  String get tapNeighbour => t(
+    'Tap a highlighted neighbor to visit it.',
+    'Toca un vecino resaltado para visitarlo.',
+  );
+  String source(String name, [int? year]) =>
+      '${t('Source', 'Fuente')}: $name${year == null ? '' : ' · $year'}';
+  String get worldBank => t('World Bank', 'Banco Mundial');
+  String get naturalEarth => 'Natural Earth';
+
+  String get listen => t('Listen', 'Escuchar');
+  String get stopListening => t('Stop', 'Detener');
+  String get readAloudOn =>
+      t('Stop reading aloud', 'Dejar de leer en voz alta');
+  String get readAloudOff =>
+      t('Read everything aloud', 'Leer todo en voz alta');
+  String get or => t('or', 'o');
+  String get takeTest => t('Take the test', 'Haz la prueba');
+  String unlockProgress(int done, int total) => t(
+    'See every fact to unlock a test · $done of $total',
+    'Descubre todos los datos para desbloquear una prueba · $done de $total',
+  );
+  String testEyebrow(String country) =>
+      t('TEST · ', 'PRUEBA · ') + country.toUpperCase();
+  String questionOf(int n, int total) =>
+      t('Question $n of $total', 'Pregunta $n de $total');
+  String get correct => t('Correct!', '¡Correcto!');
+  String get notQuiteIntro =>
+      t('Not quite. The answer is:', 'Casi. La respuesta es:');
+  String notQuite(String answer) => '$notQuiteIntro $answer';
+  String get nextQuestion => t('Next question', 'Siguiente pregunta');
+  String get seeScore => t('See my score', 'Ver mi resultado');
+  String scoreLine(int score, int total) =>
+      t('$score out of $total correct', '$score de $total correctas');
+  String scoreMessage(String country, int score, int total) => score == total
+      ? t(
+          'Perfect! You’re a $country expert!',
+          '¡Perfecto! ¡Sabes mucho de $country!',
+        )
+      : score * 2 >= total
+      ? t(
+          'Great job! You know a lot about $country.',
+          '¡Muy bien! Sabes bastante de $country.',
+        )
+      : t(
+          'Nice try! Explore the facts again and have another go.',
+          '¡Buen intento! Repasa los datos e inténtalo otra vez.',
+        );
+  String get tryAgain => t('Try again', 'Intentar otra vez');
+  String get backToFacts => t('Back to the facts', 'Volver a los datos');
+  String quizCapital(String country) =>
+      t('What is the capital of $country?', '¿Cuál es la capital de $country?');
+  String get quizMorePeople =>
+      t('Which country has more people?', '¿Qué país tiene más habitantes?');
+  String get quizBigger =>
+      t('Which country is bigger?', '¿Qué país es más grande?');
+  String quizNeighbour(String country) => t(
+    'Which country shares a land border with $country?',
+    '¿Qué país tiene frontera terrestre con $country?',
+  );
+  String quizAnyNeighbours(String country) => t(
+    'Does $country share a land border with another country?',
+    '¿$country tiene frontera terrestre con otro país?',
+  );
+  String get onlySea =>
+      t('No, it’s surrounded by sea', 'No, está rodeado de mar');
+  String get yesItDoes => t('Yes, it does', 'Sí, la tiene');
+
   String topic(String topic) => switch (topic) {
     'wildlife' => t('Wildlife', 'Vida silvestre'),
     'culture' => t('Culture', 'Cultura'),
